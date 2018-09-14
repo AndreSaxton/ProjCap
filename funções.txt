@@ -1,0 +1,13 @@
+salvar oficiais
+alterar oficiais
+salvar comissoes
+alterar comissoes
+salvar calendario
+mostrar calendario
+editar calendario
+pagar mensalidade
+mostrar mensalidade
+salvar relatorio comissoes
+mostrar relatorio comissoes
+salvar atas
+mostrar atas

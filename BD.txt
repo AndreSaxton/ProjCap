@@ -1,0 +1,67 @@
+CREATE DATABASE projCap;
+CREATE TABLE capitulo(
+	cd_capitulo INT NOT NULL PRIMARY KEY,
+	nm_capitulo VARCHAR(50) NOT NULL
+);
+CREATE TABLE demolay(
+	cd_demolay INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	cd_cid_demolay INT,
+	nm_demolay VARCHAR(100) NOT NULL,
+	cd_capitulo INT NOT NULL
+);
+CREATE TABLE gestao(
+	cd_gestao INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	cd_capitulo INT NOT NULL
+);
+CREATE TABLE cargo(
+	cd_cargo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nm_cargo VARCHAR(20) NOT NULL,
+	cd_gestao INT NOT NULL
+);
+CREATE TABLE comissao(
+	cd_comissao INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nm_comissao VARCHAR(20) NOT NULL,
+	cd_gestao INT NOT NULL
+);
+CREATE TABLE mensalidade(
+	cd_mensalidade INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	dt_mensalidade DATE NOT NULL,
+	dt_pagamento_mensalidade DATE NOT NULL,
+	cd_demolay INT NOT NULL
+);
+CREATE TABLE reuniao(
+	cd_reuniao INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	dt_reuniao DATE NOT NULL,
+	nm_pauta_reuniao VARCHAR(100) NOT NULL,
+	cd_gestao INT NOT NULL
+);
+CREATE TABLE ata(
+	cd_ata INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	dt_ata DATE NOT NULL,
+	nm_tipo_ata VARCHAR(10) NOT NULL,
+	cd_gestao INT NOT NULL
+);
+ALTER TABLE demolay ADD CONSTRAINT cd_capituloDemolay FOREIGN KEY (cd_capitulo) REFERENCES capitulo (cd_capitulo);
+ALTER TABLE ata ADD CONSTRAINT cd_gestaoAta FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
+ALTER TABLE cargo ADD CONSTRAINT cd_gestaoCargo FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
+ALTER TABLE comissao ADD CONSTRAINT cd_gestaoComissao FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
+ALTER TABLE gestao ADD CONSTRAINT cd_capituloGestao FOREIGN KEY (cd_capitulo) REFERENCES capitulo (cd_capitulo);
+ALTER TABLE reuniao ADD CONSTRAINT cd_gestaoReuniao FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
+ALTER TABLE mensalidade ADD CONSTRAINT cd_demolayMensalidade FOREIGN KEY (cd_demolay) REFERENCES demolay (cd_demolay);
+
+INSERT INTO capitulo (nm_capitulo) VALUES ("Praia Grande");
+INSERT INTO gestao (cd_capitulo) VALUES ((SELECT cd_capitulo FROM capitulo WHERE cd_capitulo = 0));
+INSERT INTO demolay (cd_cid_demolay, nm_demolay, cd_capitulo) VALUES (74837, "André", (SELECT cd_capitulo FROM capitulo WHERE cd_capitulo = 0));
+INSERT INTO reuniao (dt_reuniao, nm_pauta_reuniao, cd_gestao) VALUES ("09/12/2018", "escreva pauta aqui", (SELECT cd_gestao FROM gestao WHERE cd_gestao = 0));
+INSERT INTO ata (dt_ata, nm_tipo_ata, cd_gestao) VALUES ("09/12/2018", "Nova", (SELECT cd_gestao FROM gestao WHERE cd_gestao = 0));
+INSERT INTO cargo (nm_cargo, cd_gestao) VALUES ("Ativo", (SELECT cd_gestao FROM gestao WHERE cd_gestao = 0));
+INSERT INTO comissao (nm_comissao, cd_gestao) VALUES ("Diversao", (SELECT cd_gestao FROM gestao WHERE cd_gestao = 0));
+INSERT INTO mensalidade (dt_mensalidade, dt_pagamento_mensalidade, cd_demolay) VALUES ("09/12/2018", "09/12/2018", (SELECT cd_demolay FROM demolay WHERE cd_demolay = 0));
+
+CREATE TABLE membro(
+	cd_membro INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	cd_demolay INT NOT NULL,
+	cd_comissao INT NOT NULL
+);
+ALTER TABLE membro ADD CONSTRAINT cd_demolayMembro FOREIGN KEY (cd_demolay) REFERENCES comissao (cd_demolay);
+ALTER TABLE membro ADD CONSTRAINT cd_comissaoMembro FOREIGN KEY (cd_comissao) REFERENCES comissao (cd_demolay);
