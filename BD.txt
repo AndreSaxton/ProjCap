@@ -63,5 +63,15 @@ CREATE TABLE membro(
 	cd_demolay INT NOT NULL,
 	cd_comissao INT NOT NULL
 );
-ALTER TABLE membro ADD CONSTRAINT cd_demolayMembro FOREIGN KEY (cd_demolay) REFERENCES comissao (cd_demolay);
-ALTER TABLE membro ADD CONSTRAINT cd_comissaoMembro FOREIGN KEY (cd_comissao) REFERENCES comissao (cd_demolay);
+ALTER TABLE membro ADD CONSTRAINT cd_demolayMembro FOREIGN KEY (cd_demolay) REFERENCES demolay (cd_demolay);
+ALTER TABLE membro ADD CONSTRAINT cd_comissaoMembro FOREIGN KEY (cd_comissao) REFERENCES comissao (cd_comissao);
+
+CREATE TABLE usuario(
+	cd_usuario INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	nm_usuario varchar(20) NOT NULL,
+	nm_SENHA_usuario varchar(20) NOT NULL,
+	cd_demolay INT NOT NULL
+);
+ALTER TABLE USUARIO ADD CONSTRAINT cd_demolayUsuario FOREIGN KEY (cd_demolay) REFERENCES demolay(cd_demolay);
+
+INSERT INTO usuario (nm_usuario, nm_senha_usuario, cd_demolay) VALUES ('andrelfs', 'forna', 1);
