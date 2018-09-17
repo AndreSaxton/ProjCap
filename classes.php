@@ -1,12 +1,35 @@
 <?php
+adicionar session pra guardar a class demolay
+    class usuario{
+        function logar($login, $senha){
+            $conexao = new mysqli('localhost', 'root','', 'projcap');
+            
+            $consulta = "SELECT * FROM usuario WHERE nm_usuario = '$login' AND nm_senha_usuario = '$senha'";
+            $verifica = $conexao->query($consulta);
+            $rows = $verifica->num_rows;
+            if($rows == 0){ //verifica se a informação chegou
+                echo "Login Inexistente";
+            }else{
+                $busca = $conexao->query($consulta);
+                $usuario = array();
+                while($info = $busca->fetch_assoc()){
+                    $usuario[0] = $info['cd_usuario'];
+                    $usuario[1] = $info['nm_usuario'];
+                    $usuario[2] = $info['cd_demolay'];
+                }
+                return $usuario;
+            }
+        }
+        function deslogar(){}
+    }
     class demolay{
-        function __construct($nome){
+        function __construct($cdDemolay){
             $this->conexao = new mysqli('localhost', 'root','', 'projcap');
             
             $conexao = $this->conexao;
             $consulta = "SELECT * FROM demolay 
             JOIN capitulo ON capitulo.cd_capitulo = demolay.cd_capitulo 
-            WHERE nm_demolay='$nome'";
+            WHERE cd_demolay=$cdDemolay";
             $verifica = $conexao->query($consulta);
             $rows = $verifica->num_rows;
             if($rows == 0){ //verifica se a informação chegou
@@ -26,7 +49,6 @@
         
         public $cid;
         public $nome;
-        public $cargo;
         public $capitulo;
 
         function pagarMensalidade(){}
@@ -160,6 +182,7 @@
             $conexao->query($consulta);
         }
         function mudarReuniao(){}
+        function apagarReuniao(){}
     }
     class tesoureiro extends demolay{
         function verMensalidades(){
@@ -219,14 +242,39 @@
             }
         }
         public $comissao;
-        function adicionarMembro($nome, $comissao){
+        function adicionarMembro($cdDemolay, $comissao){
             $conexao = $this->conexao;
             $consulta = "INSERT INTO membro (cd_demolay, cd_comissao) VALUES 
-                ((SELECT demolay.cd_demolay FROM demolay WHERE nm_demolay = '$nome'), 
+                ((SELECT demolay.cd_demolay FROM demolay WHERE cd_demolay = '$cdDemolay'), 
                 (SELECT comissao.cd_comissao FROM comissao WHERE nm_comissao = '$comissao'));";
             $conexao->query($consulta);
-            echo $consulta;
+            //echo $consulta;
         }
-        function retirarMembro(){}
+        function retirarMembro($cdMembro){
+            $conexao = $this->conexao;
+            $consulta = "DELETE FROM membro WHERE cd_membro = $cdMembro";
+            $conexao->query($consulta);
+        }
+        function verMembroComissao($comissao){
+            $conexao = $this->conexao;
+            $consulta = "SELECT membro.*, nm_demolay FROM membro
+            JOIN demolay ON demolay.cd_demolay = membro.cd_demolay
+            WHERE cd_comissao = (SELECT cd_comissao FROM comissao WHERE nm_comissao = '$comissao')";
+            $verifica = $conexao->query($consulta);
+            $rows = $verifica->num_rows;
+            if($rows == 0){ //verifica se a informação chegou
+                echo "falha ao buscar";
+            }else{
+                $busca = $conexao->query($consulta);
+                $comissoes = array();
+                $index0 = 0;
+                while($info = $busca->fetch_assoc()){
+                    $comissoes[$index0][0] = $info['cd_membro'];
+                    $comissoes[$index0][1] = $info['nm_demolay'];
+                    $index0++;
+                }
+                return $comissoes;
+            }
+        }
     }
 ?>
