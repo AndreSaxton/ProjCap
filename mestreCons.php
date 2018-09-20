@@ -39,7 +39,7 @@
 <?php
     require_once('index.php');
     require_once('classes.php');
-    $cdDemolay = $_SESSION['cd_usuario'];
+    $cdDemolay = $_SESSION['cd_demolay'];
     $demolay = new demolay($cdDemolay);
 
     if(!empty($_REQUEST["salvarReuniao"])){
@@ -47,7 +47,7 @@
         $pauta = $_REQUEST["pauta"];
         $gestao = 1;
 
-        $mestreConselheiro = new mestreConselheiro();
+        $mestreConselheiro = new mestreConselheiro($cdDemolay);
         $mestreConselheiro->salvarReuniao($data,$pauta,$gestao);
     }
     if(!empty($_REQUEST["adicionarDM"])){
@@ -55,7 +55,7 @@
         $nome = $_REQUEST["nome"];
         $capitulo = $_REQUEST["capitulo"];
 
-        $mestreConselheiro = new mestreConselheiro($demolay->nome);
+        $mestreConselheiro = new mestreConselheiro($cdDemolay);
         $mestreConselheiro->adicionarDemolay($cid,$nome,$capitulo);
     }
     if(!empty($_REQUEST["salvarComissao"])){
@@ -63,7 +63,7 @@
         $presidente = $_REQUEST["pressComissao"];
         $gestao = 1;
 
-        $mestreConselheiro = new mestreConselheiro($demolay->nome);
+        $mestreConselheiro = new mestreConselheiro($cdDemolay);
         $mestreConselheiro->adicionarComissao($comissao,$presidente,$gestao);
     }
 ?>

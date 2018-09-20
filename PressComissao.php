@@ -15,10 +15,10 @@
     <?php
     require_once('index.php');
     require_once('classes.php');
-    $cdDemolay = $_SESSION['cd_usuario'];
+    $cdDemolay = $_SESSION['cd_demolay'];
     $demolay = new demolay($cdDemolay);
     $demolays = $demolay->verDemolays();
-    $pressComissao = new presidenteComissao($demolay->cid);
+    $pressComissao = new presidenteComissao($cdDemolay);
     $membrosComissao = $pressComissao->verMembroComissao($pressComissao->comissao);
 
     if ($pressComissao->comissao!="nenhuma") {
@@ -86,14 +86,14 @@
         $membro = $_REQUEST["nMembro"];
         $comissao = $pressComissao->comissao;
 
-        $pressComissao = new presidenteComissao($demolay->cid);
+        $pressComissao = new presidenteComissao($cdDemolay);
         $pressComissao->adicionarMembro($membro ,$comissao);
     }
     if(!empty($_REQUEST["retirarMembroComissao"])){
         $membro = $_REQUEST["nMembro"];
         $comissao = $pressComissao->comissao;
 
-        $pressComissao = new presidenteComissao($demolay->cid);
+        $pressComissao = new presidenteComissao($cdDemolay);
         $pressComissao->retirarMembro($membro);
     }
     ?>
