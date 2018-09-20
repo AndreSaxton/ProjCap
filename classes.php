@@ -1,5 +1,5 @@
 <?php
-adicionar session pra guardar a class demolay
+//adicionar session pra guardar a class demolay
     class usuario{
         function logar($login, $senha){
             $conexao = new mysqli('localhost', 'root','', 'projcap');
@@ -13,12 +13,18 @@ adicionar session pra guardar a class demolay
                     $usuario[1] = $info['nm_usuario'];
                     $usuario[2] = $info['cd_demolay'];
                 }
+                $_SESSION['cd_usuario'] = $usuario[0];
+                $_SESSION['nm_usuario'] = $usuario[1];
+                $_SESSION['cd_demolay'] = $usuario[2];
                 //print_r($busca);
                 return $usuario;
             }
             //else //nao encontrado
         }
-        function deslogar(){}
+        function deslogar(){
+            unset($_SESSION);
+            session_destroy();
+        }
     }
     class demolay{
         function __construct($cdDemolay){
