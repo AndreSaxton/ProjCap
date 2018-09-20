@@ -1,5 +1,5 @@
 <?php
-//adicionar session pra guardar a class demolay
+adicionar session pra guardar a class demolay
     class usuario{
         function logar($login, $senha){
             $conexao = new mysqli('localhost', 'root','', 'projcap');
@@ -23,17 +23,15 @@
     class demolay{
         function __construct($cdDemolay){
             $this->conexao = new mysqli('localhost', 'root','', 'projcap');
-            
             $conexao = $this->conexao;
             $consulta = "SELECT * FROM demolay 
             JOIN capitulo ON capitulo.cd_capitulo = demolay.cd_capitulo 
             WHERE cd_demolay=$cdDemolay";
-            $verifica = $conexao->query($consulta);
-            $rows = $verifica->num_rows;
+            $busca = $conexao->query($consulta);
+            $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou
                 echo "falha ao buscar";
             }else{
-                $busca = $conexao->query($consulta);
                 $demolay = array();
                 $index0 = 0;
                 while($info = $busca->fetch_assoc()){
@@ -55,12 +53,11 @@
             $consulta = "SELECT mensalidade.*, nm_demolay FROM mensalidade 
                 JOIN demolay ON demolay.cd_demolay = mensalidade.cd_demolay
                 WHERE cd_cid_demolay = $this->cid";
-            $verifica = $conexao->query($consulta);
-            $rows = $verifica->num_rows;
+            $busca = $conexao->query($consulta);
+            $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou
                 echo "falha ao buscar";
             }else{
-                $busca = $conexao->query($consulta);
                 $mensalidades = array();
                 $index0 = 0;
                 while($info = $busca->fetch_assoc()){
@@ -76,12 +73,11 @@
         function verReunioes(){
             $conexao = $this->conexao;
             $consulta = "SELECT * FROM reuniao";
-            $verifica = $conexao->query($consulta);
-            $rows = $verifica->num_rows;
+            $busca = $conexao->query($consulta);
+            $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou
                 echo "falha ao buscar";
             }else{
-                $busca = $conexao->query($consulta);
                 $reunioes = array();
                 $index0 = 0;
                 while($info = $busca->fetch_assoc()){
@@ -98,12 +94,11 @@
             $conexao = $this->conexao;
             $consulta = "SELECT comissao.*, nm_demolay FROM comissao
             JOIN demolay ON demolay.cd_demolay = comissao.cd_demolay";
-            $verifica = $conexao->query($consulta);
-            $rows = $verifica->num_rows;
+            $busca = $conexao->query($consulta);
+            $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou
                 echo "falha ao buscar";
             }else{
-                $busca = $conexao->query($consulta);
                 $comissoes = array();
                 $index0 = 0;
                 while($info = $busca->fetch_assoc()){
@@ -117,13 +112,14 @@
                     JOIN comissao ON comissao.cd_comissao = membro.cd_comissao
                     JOIN demolay ON demolay.cd_demolay = membro.cd_demolay
                     WHERE nm_comissao = '".$comissao."'";
-                    $verifica = $conexao->query($consulta);
-                    $rows = $verifica->num_rows;
+
+                    $busca = $conexao->query($consulta);
+                    $rows = $busca->num_rows;
                     if($rows == 0){ //verifica se a informação chegou
                         //echo "$comissao nao tem membros";
                     }else{
                         $membros = 0;
-                        while($info = $verifica->fetch_assoc()){
+                        while($info = $busca->fetch_assoc()){
                             $comissoes[$index0][4][$membros] = $info['nm_demolay'];
                             $membros++;
                         }
@@ -136,12 +132,11 @@
         function verDemolays(){
             $conexao = $this->conexao;
             $consulta = "SELECT * FROM demolay JOIN capitulo ON capitulo.cd_capitulo = demolay.cd_capitulo";
-            $verifica = $conexao->query($consulta);
-            $rows = $verifica->num_rows;
+            $busca = $conexao->query($consulta);
+            $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou
                 echo "falha ao buscar";
             }else{
-                $busca = $conexao->query($consulta);
                 $demolays = array();
                 $index0 = 0;
                 while($info = $busca->fetch_assoc()){
@@ -187,12 +182,11 @@
             $conexao = $this->conexao;
             $consulta = "SELECT mensalidade.*, nm_demolay FROM mensalidade 
                 JOIN demolay ON demolay.cd_demolay = mensalidade.cd_demolay";
-            $verifica = $conexao->query($consulta);
-            $rows = $verifica->num_rows;
+            $busca = $conexao->query($consulta);
+            $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou
                 echo "falha ao buscar";
             }else{
-                $busca = $conexao->query($consulta);
                 $mensalidades = array();
                 $index0 = 0;
                 while($info = $busca->fetch_assoc()){
@@ -220,13 +214,12 @@
             $consulta = "SELECT * FROM comissao 
             JOIN demolay ON demolay.cd_demolay = comissao.cd_demolay
             WHERE cd_cid_demolay=$cid";
-            $verifica = $conexao->query($consulta);
-            $rows = $verifica->num_rows;
+            $busca = $conexao->query($consulta);
+            $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou
                 //echo "Não preside comissão";
                 $this->comissao = "nenhuma";
             }else{
-                $busca = $conexao->query($consulta);
                 $comissao = array();
                 $index0 = 0;
                 while($info = $busca->fetch_assoc()){
@@ -258,12 +251,11 @@
             $consulta = "SELECT membro.*, nm_demolay FROM membro
             JOIN demolay ON demolay.cd_demolay = membro.cd_demolay
             WHERE cd_comissao = (SELECT cd_comissao FROM comissao WHERE nm_comissao = '$comissao')";
-            $verifica = $conexao->query($consulta);
-            $rows = $verifica->num_rows;
+            $busca = $conexao->query($consulta);
+            $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou
                 echo "falha ao buscar";
             }else{
-                $busca = $conexao->query($consulta);
                 $comissoes = array();
                 $index0 = 0;
                 while($info = $busca->fetch_assoc()){
