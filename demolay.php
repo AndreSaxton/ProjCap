@@ -39,8 +39,11 @@
 </head>
 <body>
     <?php
+    require_once('index.php');//cabecalho
+
     require_once('classes.php');
-    $demolay = new demolay("Andre");
+    $cdDemolay = $_SESSION['cd_demolay'];
+    $demolay = new demolay($cdDemolay);
     $reunioes = $demolay->verReunioes();
     $mensalidades = $demolay->verMensalidade();
     $demolays = $demolay->verDemolays();

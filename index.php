@@ -53,7 +53,7 @@
                 echo "Nome:".$demolay->nome;echo "<br>";
                 echo "Capitulo:".$demolay->capitulo;
                 echo "<br>";
-                print_r($_SESSION);
+                //print_r($_SESSION);
                 header("Location: index.php");
             }
         }

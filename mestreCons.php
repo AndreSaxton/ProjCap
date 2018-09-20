@@ -37,8 +37,10 @@
 <body>
 
 <?php
+    require_once('index.php');
     require_once('classes.php');
-    $demolay = new demolay("Andre");
+    $cdDemolay = $_SESSION['cd_usuario'];
+    $demolay = new demolay($cdDemolay);
 
     if(!empty($_REQUEST["salvarReuniao"])){
         $data = $_REQUEST["data"];

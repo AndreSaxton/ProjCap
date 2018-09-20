@@ -11,8 +11,10 @@
 </head>
 <body>
     <?php
+    require_once('index.php');
     require_once('classes.php');
-    $tesoureiro = new tesoureiro("Andre");
+    $cdDemolay = $_SESSION['cd_demolay'];
+    $tesoureiro = new tesoureiro($cdDemolay);
     $mensalidades = $tesoureiro->verMensalidades();
     ?>
 
