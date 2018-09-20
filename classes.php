@@ -1,24 +1,22 @@
 <?php
-adicionar session pra guardar a class demolay
+//adicionar session pra guardar a class demolay
     class usuario{
         function logar($login, $senha){
             $conexao = new mysqli('localhost', 'root','', 'projcap');
-            
-            $consulta = "SELECT * FROM usuario WHERE nm_usuario = '$login' AND nm_senha_usuario = '$senha'";
-            $verifica = $conexao->query($consulta);
-            $rows = $verifica->num_rows;
-            if($rows == 0){ //verifica se a informação chegou
-                echo "Login Inexistente";
-            }else{
-                $busca = $conexao->query($consulta);
-                $usuario = array();
+            $stmt = $conexao->prepare('SELECT * FROM usuario WHERE nm_usuario = ? AND nm_senha_usuario = ?');
+            $stmt->bind_param('ss',$login, $senha);
+            $stmt->execute();
+            $busca = $stmt->get_result();
+            if ($busca->num_rows) {
                 while($info = $busca->fetch_assoc()){
                     $usuario[0] = $info['cd_usuario'];
                     $usuario[1] = $info['nm_usuario'];
                     $usuario[2] = $info['cd_demolay'];
                 }
+                //print_r($busca);
                 return $usuario;
             }
+            //else //nao encontrado
         }
         function deslogar(){}
     }
