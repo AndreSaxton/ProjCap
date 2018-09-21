@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <style>
-    </style>
+    <link rel="stylesheet" text="text/css" href="estilo.css">
     <script>
         function validarLogin(){
         let login = document.getElementById("iLogin").value;
@@ -16,6 +15,13 @@
     </script>
 </head>
 <body>
+    <div id="menu">
+        <p>MENU</p>
+        <p class="opcao1"><a href="demolay.php">Demolay</a></p>
+        <p class="opcao1"><a href="mestreCons.php">MC</a></p>
+        <p class="opcao1"><a href="tesoureiro.php">Tes</a></p>
+        <p class="opcao1"><a href="PressComissao.php">Press</a></p>
+    </div>
 
     <?php
     session_start();
