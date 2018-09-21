@@ -19,6 +19,7 @@
 
     <?php
     session_start();
+    require_once('classes.php');
     if (!$_SESSION) {?>
 
     <form action="#" method="post">
@@ -28,31 +29,36 @@
         <tr><td></td><td><input type="submit" onclick="return validarLogin();" value="Logar" name="btnLogin"></td></tr>
         </table>
     </form>
-    <?php }else{ ?>
+    <?php }else{
+        //print_r($_SESSION);
+        $cd_demolay = $_SESSION['cd_demolay'];
+        $demolay = new demolay($cd_demolay);//enviando o cd_demolay para o construtor
+    ?>
     <form action="#" method="post">
     <input type="submit" onclick="" value="Deslogar" name="btnUnlogin">
     </form>
-    <?php }
-    ?>
+
+    <table>
+        <tr>
+            <td>CID:</td><td><?php echo $demolay->cid;?></td>
+            <td>Capitulo:</td><td><?php echo $demolay->capitulo;?></td>
+        </tr>
+        <tr>
+            <td>Nome:</td><td><?php echo $demolay->nome;?></td>
+            <td>Gestão:</td><td><?php echo $demolay->gestao;?></td>
+        </tr>
+        </table>
+    <?php } ?>
     
     <?php
-    print_r($_SESSION);
         if(!empty($_REQUEST["btnLogin"])){
             $login = $_REQUEST["nLogin"];
             $senha = $_REQUEST["nPassword"];
-    
-            require_once('classes.php');
             $usuario = new usuario();
             $login = $usuario->logar($login, $senha);
             if(!$login){//login nao existe
             }
             else{
-                $demolay = new demolay($login[2]);//enviando o cd_demolay para o construtor
-                echo "Codigo do Usuario: $login[0]";echo "<br>";
-                echo "CID:".$demolay->cid;echo "<br>";
-                echo "Nome:".$demolay->nome;echo "<br>";
-                echo "Capitulo:".$demolay->capitulo;
-                echo "<br>";
                 //print_r($_SESSION);
                 header("Location: index.php");
             }

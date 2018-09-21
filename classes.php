@@ -32,7 +32,8 @@
             $conexao = $this->conexao;
             $consulta = "SELECT * FROM demolay 
             JOIN capitulo ON capitulo.cd_capitulo = demolay.cd_capitulo 
-            WHERE cd_demolay=$cdDemolay";
+            JOIN gestao ON gestao.cd_capitulo = capitulo.cd_capitulo
+            WHERE cd_demolay = $cdDemolay";
             $busca = $conexao->query($consulta);
             $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou
@@ -44,6 +45,7 @@
                     $this->cid = $info['cd_cid_demolay'];
                     $this->nome = $info['nm_demolay'];
                     $this->capitulo = $info['nm_capitulo'];
+                    $this->gestao = $info['nm_gestao'];
                 }
             }
         }
@@ -52,6 +54,7 @@
         public $cid;
         public $nome;
         public $capitulo;
+        public $gestao;
 
         function pagarMensalidade(){}
         function verMensalidade(){
@@ -182,6 +185,7 @@
         }
         function mudarReuniao(){}
         function apagarReuniao(){}
+        function mudarGestao(){}
     }
     class tesoureiro extends demolay{
         function verMensalidades(){
