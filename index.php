@@ -16,11 +16,14 @@
 </head>
 <body>
     <div id="menu">
-        <p>MENU</p>
-        <p class="opcao1"><a href="demolay.php">Demolay</a></p>
-        <p class="opcao1"><a href="mestreCons.php">MC</a></p>
-        <p class="opcao1"><a href="tesoureiro.php">Tes</a></p>
-        <p class="opcao1"><a href="PressComissao.php">Press</a></p>
+        <p id="pMenu"><a href="#opcoes">MENU</a></p>
+        <div id="opcoes">
+            <p class="opcao1"><a href="demolay.php">Demolay</a></p>
+            <p class="opcao1"><a href="mestreCons.php">MC</a></p>
+            <p class="opcao1"><a href="tesoureiro.php">Tes</a></p>
+            <p class="opcao1"><a href="PressComissao.php">Press</a></p>
+            <p><a href="">Fechar</a></p>
+        </div>
     </div>
 
     <?php

@@ -2,18 +2,30 @@
 body{
     width: 100%;
     background-color: aqua;
+    margin: 0px;
 }
 div#menu{
-    text-align: center;
     background-color: grey;
 }
-div#menu p.opcao1{
-    position: relative;
-    bottom: 200px;
+div#menu p#pMenu{
+    z-index: 2;
+    margin-left: 10px;
 }
-div#menu p.opcao2{
+div#menu p{
+    text-align: center;
+    margin: 0px;
+    font-size: 400%;
+}
+#opcoes{
+    position: relative;
     bottom: 0px;
+    height: 100%;
+    display: none;
+}
+#opcoes:target{
+    display: block;
 }
 a{
     text-decoration: none;
+    color: black;
 }
