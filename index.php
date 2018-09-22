@@ -15,17 +15,6 @@
     </script>
 </head>
 <body>
-    <div id="menu">
-        <p id="pMenu"><a href="#opcoes">MENU</a></p>
-        <div id="opcoes">
-            <p class="opcao1"><a href="demolay.php">Demolay</a></p>
-            <p class="opcao1"><a href="mestreCons.php">MC</a></p>
-            <p class="opcao1"><a href="tesoureiro.php">Tes</a></p>
-            <p class="opcao1"><a href="PressComissao.php">Press</a></p>
-            <p><a href="">Fechar</a></p>
-        </div>
-    </div>
-
     <?php
     session_start();
     require_once('classes.php');
@@ -39,10 +28,20 @@
         </table>
     </form>
     <?php }else{
-        //print_r($_SESSION);
         $cd_demolay = $_SESSION['cd_demolay'];
         $demolay = new demolay($cd_demolay);//enviando o cd_demolay para o construtor
     ?>
+    <div id="menu">
+        <p id="pMenu"><a href="#opcoes">MENU</a></p>
+        <div id="opcoes">
+            <p class="opcao1"><a href="demolay.php">Demolay</a></p>
+            <p class="opcao1"><a href="mestreCons.php">MC</a></p>
+            <p class="opcao1"><a href="tesoureiro.php">Tes</a></p>
+            <p class="opcao1"><a href="PressComissao.php">Press</a></p>
+            <p><a href="">Fechar</a></p>
+        </div>
+    </div>
+    
     <form action="#" method="post">
     <input type="submit" onclick="" value="Deslogar" name="btnUnlogin">
     </form>
@@ -68,7 +67,6 @@
             if(!$login){//login nao existe
             }
             else{
-                //print_r($_SESSION);
                 header("Location: index.php");
             }
         }

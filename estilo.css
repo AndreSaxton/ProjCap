@@ -1,8 +1,10 @@
 /*@media(min-width: 1px){*/
 body{
-    width: 100%;
-    background-color: aqua;
     margin: 0px;
+    font-size: 60px;
+}
+input{
+    font-size: 40px;
 }
 div#menu{
     background-color: grey;
@@ -14,7 +16,6 @@ div#menu p#pMenu{
 div#menu p{
     text-align: center;
     margin: 0px;
-    font-size: 400%;
 }
 #opcoes{
     position: relative;
