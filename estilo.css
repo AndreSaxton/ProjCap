@@ -1,32 +1,45 @@
-/*@media(min-width: 1px){*/
-body{
-    margin: 0px;
-    font-size: 60px;
+@media(min-width: 1px){/**/
+    body{
+        margin: 0px;
+        font-size: 60px;
+    }
+    input{
+        font-size: 40px;
+    }
+    div#login{
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+    }
+    div#menu{
+        background-color: grey;
+    }
+    div#menu p#pMenu{
+        z-index: 2;
+        margin-left: 10px;
+    }
+    div#menu p{
+        text-align: center;
+        margin: 0px;
+    }
+    #opcoes{
+        position: relative;
+        bottom: 0px;
+        height: 100%;
+        display: none;
+    }
+    #opcoes:target{
+        display: block;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
 }
-input{
-    font-size: 40px;
-}
-div#menu{
-    background-color: grey;
-}
-div#menu p#pMenu{
-    z-index: 2;
-    margin-left: 10px;
-}
-div#menu p{
-    text-align: center;
-    margin: 0px;
-}
-#opcoes{
-    position: relative;
-    bottom: 0px;
-    height: 100%;
-    display: none;
-}
-#opcoes:target{
-    display: block;
-}
-a{
-    text-decoration: none;
-    color: black;
-}
+@media(min-width: 600px){
+    body{
+        margin: 0px;
+        font-size: 20px;
+        
+    }
+}/**/

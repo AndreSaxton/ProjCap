@@ -68,30 +68,39 @@
     }
 ?>
 
-<form action="#" method="post">
-    <table>
-        <tr><td>Data:</td><td><input type="date" name="data" id="iData"></td></tr>
-        <tr><td>Pauta:</td><td><input type="text" name="pauta" id="iPauta"></td></tr>
-        <tr><td></td><td><input type="submit" onclick="return validarReuniao();" value="Salvar" name="salvarReuniao"></td></tr>
-    </table>
-</form>
+<div>
+    <label>Salvar nova Reunião</label>
+    <form action="#" method="post">
+        <table>
+            <tr><td>Data:</td><td><input type="date" name="data" id="iData"></td></tr>
+            <tr><td>Pauta:</td><td><input type="text" name="pauta" id="iPauta"></td></tr>
+            <tr><td></td><td><input type="submit" onclick="return validarReuniao();" value="Salvar" name="salvarReuniao"></td></tr>
+        </table>
+    </form>
+</div>
 
-<form action="#" method="post">
-    <table>
-        <tr><td>CID:</td><td><input type="text" name="cid" id="iCid"></td></tr>
-        <tr><td>Nome:</td><td><input type="text" name="nome" id="iNome"></td></tr>
-        <tr><td>Capitulo:</td><td><input type="text" name="capitulo" id="iCapitulo" readonly="true" <?php echo "value='$demolay->capitulo'"; ?> > </td></tr>
-        <tr><td></td><td><input type="submit" onclick="return validarMembro();" value="Salvar" name="adicionarDM"></td></tr>
-    </table>
-</form>
+<div>
+    <label>Salvar novo Membro</label>
+    <form action="#" method="post">
+        <table>
+            <tr><td>CID:</td><td><input type="text" name="cid" id="iCid"></td></tr>
+            <tr><td>Nome:</td><td><input type="text" name="nome" id="iNome"></td></tr>
+            <tr><td>Capitulo:</td><td><input type="text" name="capitulo" id="iCapitulo" readonly="true" <?php echo "value='$demolay->capitulo'"; ?> > </td></tr>
+            <tr><td></td><td><input type="submit" onclick="return validarMembro();" value="Salvar" name="adicionarDM"></td></tr>
+        </table>
+    </form>
+</div>
 
-<form action="#" method="post">
-    <table>
-        <tr><td>Nome:</td><td><input type="text" name="nomeComissao" id="iComissao"></td></tr>
-        <tr><td>Presidente:</td><td><input type="text" name="pressComissao" id="iPress"></td></tr>
-        <tr><td></td><td><input type="submit" onclick="return validarComissao();" value="Salvar" name="salvarComissao"></td></tr>
-    </table>
-</form>
+<div>
+    <label>Salvar nova Comissão</label>
+    <form action="#" method="post">
+        <table>
+            <tr><td>Nome:</td><td><input type="text" name="nomeComissao" id="iComissao"></td></tr>
+            <tr><td>Presidente:</td><td><input type="text" name="pressComissao" id="iPress"></td></tr>
+            <tr><td></td><td><input type="submit" onclick="return validarComissao();" value="Salvar" name="salvarComissao"></td></tr>
+        </table>
+    </form>
+</div>
 
 </body>
 </html>

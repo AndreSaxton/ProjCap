@@ -20,13 +20,16 @@
     require_once('classes.php');
     if (!$_SESSION) {?>
 
-    <form action="#" method="post">
-        <table>
-        <tr><td>Login:</td><td><input type="text" name="nLogin" id="iLogin"></td></tr>
-        <tr><td>Senha:</td><td><input type="password" name="nPassword" id="iPassword"></td></tr>
-        <tr><td></td><td><input type="submit" onclick="return validarLogin();" value="Logar" name="btnLogin"></td></tr>
-        </table>
-    </form>
+    <div id="login">
+        <form action="#" method="post">
+            <table>
+            <tr><td>Login:</td><td><input type="text" name="nLogin" id="iLogin"></td></tr>
+            <tr><td>Senha:</td><td><input type="password" name="nPassword" id="iPassword"></td></tr>
+            <tr><td></td><td><input type="submit" onclick="return validarLogin();" value="Logar" name="btnLogin"></td></tr>
+            </table>
+        </form>
+    </div>
+    
     <?php }else{
         $cd_demolay = $_SESSION['cd_demolay'];
         $demolay = new demolay($cd_demolay);//enviando o cd_demolay para o construtor
