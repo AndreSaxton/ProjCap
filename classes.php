@@ -33,7 +33,7 @@
             $consulta = "SELECT * FROM demolay 
             JOIN capitulo ON capitulo.cd_capitulo = demolay.cd_capitulo 
             JOIN gestao ON gestao.cd_capitulo = capitulo.cd_capitulo
-            WHERE cd_demolay = $cdDemolay";
+            WHERE cd_demolay = $cdDemolay AND cd_gestao IN (SELECT MAX(gestao.cd_gestao) FROM gestao)";
             $busca = $conexao->query($consulta);
             $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou
