@@ -1,0 +1,104 @@
+/*celular*/
+@media(max-width: 900px){
+    body{
+        margin: 0px;
+        font-size: 60px;
+    }
+    input, select, textarea{
+        font-size: 60px;
+    }
+    option{
+        font-size: 20px;
+    }
+
+    /*utilizado no login*/
+    div.login{
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+    }
+    /*FIM utilizado no login*/
+    /*utilizado no menu*/
+    div#menu{
+        background-color: grey;
+    }
+    div#menu p#pMenu{
+        z-index: 2;
+        margin-left: 10px;
+    }
+    div#menu p{
+        text-align: center;
+        margin: 0px;
+    }
+    #opcoes{
+        position: relative;
+        bottom: 0px;
+        height: 100%;
+        display: none;
+    }
+    #opcoes:target{
+        display: block;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    /*FIM utilizado no menu*/
+    /*utilizado na pag MC*/
+    .reunioes .form, .membros .form, .comissoes .form{
+        display: none;
+    }
+    .reunioes:hover .form, .membros:hover .form, .comissoes:hover .form{
+        display: block;
+    }
+    #iPauta{
+        height: 10em;
+        width: 100%;
+        
+    }
+    table, tr, tbody{
+        width: 100%;
+    }
+    /*FIM utilizado na pag MC*/
+    /*utilizado na pag demolay*/
+    /*utilizado na div reunioes*/
+    .item-a {
+        grid-area: header;
+    }
+    .item-b {
+        grid-area: main;
+    }
+    .container {
+        margin: 5px;
+        background-color: rgb(167, 72, 72);
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 30% 70%;
+        grid-template-areas: 
+            "header" "main";
+    }
+    .containers{
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    /*FIM utilizado na div reunioes*/
+    table.mensalidades td{
+        border: solid black 1px;
+    }
+    .mensalidades table, .membros table, .comissoes table, .calendario .containers{
+        display: none;
+    }
+    .mensalidades:hover table, .membros:hover table, .comissoes:hover table{
+        display: block;
+    }
+    .calendario:hover .containers{
+        display: grid;
+    }
+    td{
+        width: auto;
+        border: solid black 1px;
+    }
+    /*FIM utilizado na pag demolay*/
+}
+

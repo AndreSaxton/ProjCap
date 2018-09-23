@@ -114,7 +114,8 @@
                     $comissoes[$index0][0] = $info['cd_comissao'];
                     $comissoes[$index0][1] = $info['nm_comissao'];
                     $comissoes[$index0][2] = $info['nm_demolay'];
-                    $comissoes[$index0][3] = $info['cd_gestao'];//colocar membros
+                    $comissoes[$index0][3] = $info['cd_gestao'];
+                    //colocar membros
                     
                     $comissao = $comissoes[$index0][1];
                     $consulta = "SELECT membro.*, demolay.nm_demolay FROM membro
@@ -122,13 +123,13 @@
                     JOIN demolay ON demolay.cd_demolay = membro.cd_demolay
                     WHERE nm_comissao = '".$comissao."'";
 
-                    $busca = $conexao->query($consulta);
-                    $rows = $busca->num_rows;
+                    $busca2 = $conexao->query($consulta);
+                    $rows = $busca2->num_rows;
                     if($rows == 0){ //verifica se a informação chegou
                         //echo "$comissao nao tem membros";
                     }else{
                         $membros = 0;
-                        while($info = $busca->fetch_assoc()){
+                        while($info = $busca2->fetch_assoc()){
                             $comissoes[$index0][4][$membros] = $info['nm_demolay'];
                             $membros++;
                         }
@@ -172,7 +173,7 @@
             $conexao = $this->conexao;
             $consulta = "INSERT INTO comissao (nm_comissao, cd_demolay, cd_gestao) 
                 VALUES ('".$comissao."', 
-                (SELECT cd_demolay FROM demolay WHERE nm_demolay = '$presidente'), 
+                (SELECT cd_demolay FROM demolay WHERE cd_demolay = '$presidente'), 
                 (SELECT cd_gestao FROM gestao WHERE cd_gestao = $gestao));";
             $conexao->query($consulta);
         }
@@ -218,12 +219,12 @@
         function salvarPresenca(){}
     }
     class presidenteComissao extends demolay{
-        function __construct($cid){
+        function __construct($cdDemolay){
             $this->conexao = new mysqli('localhost', 'root','', 'projcap');
             $conexao = $this->conexao;
             $consulta = "SELECT * FROM comissao 
             JOIN demolay ON demolay.cd_demolay = comissao.cd_demolay
-            WHERE cd_cid_demolay=$cid";
+            WHERE demolay.cd_demolay=$cdDemolay";
             $busca = $conexao->query($consulta);
             $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou

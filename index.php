@@ -20,11 +20,11 @@
     require_once('classes.php');
     if (!$_SESSION) {?>
 
-    <div id="login">
+    <div class="login">
         <form action="#" method="post">
             <table>
-            <tr><td>Login:</td><td><input type="text" name="nLogin" id="iLogin"></td></tr>
-            <tr><td>Senha:</td><td><input type="password" name="nPassword" id="iPassword"></td></tr>
+            <tr><td>Login:</td><td><input type="text" name="nLogin" id="iLogin" value="andrelfs"></td></tr>
+            <tr><td>Senha:</td><td><input type="password" name="nPassword" id="iPassword" value="forna"></td></tr>
             <tr><td></td><td><input type="submit" onclick="return validarLogin();" value="Logar" name="btnLogin"></td></tr>
             </table>
         </form>
@@ -33,17 +33,9 @@
     <?php }else{
         $cd_demolay = $_SESSION['cd_demolay'];
         $demolay = new demolay($cd_demolay);//enviando o cd_demolay para o construtor
+
+        require_once('menu.html');//menu
     ?>
-    <div id="menu">
-        <p id="pMenu"><a href="#opcoes">MENU</a></p>
-        <div id="opcoes">
-            <p class="opcao1"><a href="demolay.php">Demolay</a></p>
-            <p class="opcao1"><a href="mestreCons.php">MC</a></p>
-            <p class="opcao1"><a href="tesoureiro.php">Tes</a></p>
-            <p class="opcao1"><a href="PressComissao.php">Press</a></p>
-            <p><a href="">Fechar</a></p>
-        </div>
-    </div>
     
     <form action="#" method="post">
     <input type="submit" onclick="" value="Deslogar" name="btnUnlogin">

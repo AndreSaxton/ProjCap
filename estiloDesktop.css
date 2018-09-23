@@ -1,0 +1,33 @@
+/*desktop*/
+@media(min-width: 901px){
+    body{
+        background-color: aqua;
+    }
+    /*
+    body{
+        margin: 0px;
+        font-size: 20px;
+    }
+
+    .item-a {
+        grid-area: header;
+    }
+    .item-b {
+        grid-area: main;
+    }
+    .container {
+        margin: 5px;
+        background-color: rgb(167, 72, 72);
+
+        display: grid;
+        grid-template-columns: 30% 70%;
+        grid-template-rows: auto;
+        grid-template-areas: 
+            "header main";
+    }
+    .containers{
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(4, 1fr);
+    }*/
+}/**/
