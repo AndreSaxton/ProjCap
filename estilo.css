@@ -23,6 +23,7 @@
     /*utilizado no menu*/
     div#menu{
         background-color: grey;
+        margin: 0px;
     }
     div#menu p#pMenu, div#menu p#pFechar{
         display: none;
@@ -31,14 +32,39 @@
         text-align: center;
         margin: 0px;
     }
+    .opcao{
+        padding: 10px;
+    }
+    .opcao1{
+        grid-area: opcao1;
+    }
+    .opcao2{
+        grid-area: opcao2;
+    }
+    .opcao3{
+        grid-area: opcao3;
+    }
+    .opcao4{
+        grid-area: opcao4;
+    }
+    .opcao5{
+        grid-area: opcao5;
+    }
+    .opcao6{
+        grid-area: opcao6;
+    }
     #opcoes{
-        position: relative;
-        bottom: 0px;
-        height: 100%;
-        /*display: none;*/
+        margin: 0px;
+        background-color: grey;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: auto;
+        grid-template-areas: 
+            "opcao1 opcao2 opcao3 opcao4 opcao5";
+        display: grid;
     }
     #opcoes:target{
-        display: block;
+        display: grid;
     }
     a{
         text-decoration: none;
