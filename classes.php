@@ -159,6 +159,36 @@
                 return $demolays;
             }
         }
+        function verNominata(){
+            $conexao = $this->conexao;
+            $consulta = "SELECT * FROM nominata 
+            JOIN demolay ON demolay.cd_demolay = nominata.cd_demolay
+            JOIN oficial ON oficial.cd_oficial = nominata.cd_oficial
+            JOIN gestao ON gestao.cd_gestao = nominata.cd_gestao";
+            $busca = $conexao->query($consulta);
+            $rows = $busca->num_rows;
+            if($rows == 0){ //verifica se a informação chegou
+                echo "falha ao buscar";
+            }else{
+                $nominata = array();
+                $index0 = 0;
+                while($info = $busca->fetch_assoc()){
+                    $nominata[$index0][0] = $info['nm_gestao'];
+                    $nominata[$index0][1] = $info['nm_oficial'];
+                    $nominata[$index0][2] = $info['cd_cid_demolay'];
+                    $nominata[$index0][3] = $info['nm_demolay'];
+                    /*
+                    $nominata[$index0][3] = $info['cd_demolay'];
+                    $nominata[$index0][3] = $info['cd_oficial'];
+                    $nominata[$index0][3] = $info['cd_nominata'];
+                    $nominata[$index0][3] = $info['cd_capitulo'];
+                    $nominata[$index0][3] = $info['cd_gestao'];
+                    */
+                    $index0++;
+                }
+                return $nominata;
+            }
+        }
     }
     class mestreConselheiro extends demolay{
         function adicionarDemolay($cid,$nome,$capitulo){
@@ -187,6 +217,7 @@
         function mudarReuniao(){}
         function apagarReuniao(){}
         function mudarGestao(){}
+        function fazerNominata(){}
     }
     class tesoureiro extends demolay{
         function verMensalidades(){

@@ -17,7 +17,26 @@
     $mensalidades = $demolay->verMensalidade();
     $demolays = $demolay->verDemolays();
     $comissoes = $demolay->verComissao();
+    $nominata = $demolay->verNominata();
     ?>
+
+    <div class="nominata">
+        <h3>Nominata</h3>
+        <table class="oficiais">
+        <tr><td>Gestão</td><td>Cargo</td><td>CID</td><td>Demolay</td></tr>
+        <?php
+        if($nominata!=null){
+            for ($index0=0; $index0 < sizeof($nominata); $index0++) { 
+                echo "<tr>";
+                for ($index1=0; $index1 < 4; $index1++) { 
+                    echo "<td>".$nominata[$index0][$index1]."</td>";
+                }
+                echo "</tr>";
+            }
+        }
+        ?>
+        </table>
+    </div>
 
     <div class="mensalidades">
         <h3>Mensalidades</h3>

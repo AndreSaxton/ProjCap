@@ -272,10 +272,10 @@
     table.mensalidades td{
         border: solid black 1px;
     }
-    .mensalidades table, .membros table, .comissoes table, .calendario .containers{
+    .mensalidades table, .membros table, .comissoes table, .calendario .containers, .nominata .oficiais{
         display: none;
     }
-    .mensalidades:hover table, .membros:hover table, .comissoes:hover table{
+    .mensalidades:hover table, .membros:hover table, .comissoes:hover table, .nominata:hover .oficiais{
         display: block;
     }
     .calendario:hover .containers{
