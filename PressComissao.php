@@ -34,7 +34,6 @@
                         </td>
                     </tr>
                     <tr><td></td><td><input type="submit" value="Adicionar" name="addMembroComissao"></td></tr>
-                    <tr><td></td><td></td></tr>
                 </table>
             </form>
         </div>
@@ -57,7 +56,6 @@
                             </td>
                         </tr>
                         <tr><td></td><td><input type="submit" value="Retirar" name="retirarMembroComissao"></td></tr>
-                        <tr><td></td><td></td></tr>
                     </table>
                 </form>
             </div>

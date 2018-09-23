@@ -125,7 +125,59 @@
         align-items: center;
     }
     /*FIM utilizado no login*/
+
     /*utilizado no menu*/
+    div#menu{
+        background-color: grey;
+    }
+    div#menu p#pMenu{
+        z-index: 2;
+        padding: 20px;
+    }
+    div#menu p{
+        text-align: center;
+        margin: 0px;
+    }
+    .opcao{
+        padding: 50px;
+    }
+    .opcao1{
+        grid-area: opcao1;
+    }
+    .opcao2{
+        grid-area: opcao2;
+    }
+    .opcao3{
+        grid-area: opcao3;
+    }
+    .opcao4{
+        grid-area: opcao4;
+    }
+    .opcao5{
+        grid-area: opcao5;
+    }
+    .opcao6{
+        grid-area: opcao6;
+    }
+    #opcoes{
+        margin: 5px;
+        background-color: rgba(100, 34, 28);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas: 
+            "opcao1 opcao2" "opcao3 opcao4" "opcao5 opcao6";
+        display: none;
+    }
+    #opcoes:target{
+        display: grid;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+    }
+    /*FIM utilizado no menu*/
+    /*utilizado no menu
     div#menu{
         background-color: grey;
     }
@@ -151,6 +203,7 @@
         color: black;
     }
     /*FIM utilizado no menu*/
+    
     /*utilizado na pag MC*/
     .reunioes .form, .membros .form, .comissoes .form{
         display: none;
