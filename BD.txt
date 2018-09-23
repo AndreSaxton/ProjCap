@@ -11,17 +11,24 @@ CREATE TABLE demolay(
 );
 CREATE TABLE gestao(
 	cd_gestao INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nm_gestao VARCHAR(5),
 	cd_capitulo INT NOT NULL
 );
-CREATE TABLE cargo(
-	cd_cargo INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	nm_cargo VARCHAR(20) NOT NULL,
-	cd_gestao INT NOT NULL
+CREATE TABLE oficial(
+	cd_oficial INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nm_oficial VARCHAR(20) NOT NULL
+);
+CREATE TABLE nominata(
+	cd_nominata INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	cd_gestao INT NOT NULL,
+	cd_demolay INT NOT NULL,
+	cd_oficial INT NOT NULL
 );
 CREATE TABLE comissao(
 	cd_comissao INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	nm_comissao VARCHAR(20) NOT NULL,
-	cd_gestao INT NOT NULL
+	cd_gestao INT NOT NULL,
+	cd_demolay INT NOT NULL
 );
 CREATE TABLE mensalidade(
 	cd_mensalidade INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -41,37 +48,44 @@ CREATE TABLE ata(
 	nm_tipo_ata VARCHAR(10) NOT NULL,
 	cd_gestao INT NOT NULL
 );
-ALTER TABLE demolay ADD CONSTRAINT cd_capituloDemolay FOREIGN KEY (cd_capitulo) REFERENCES capitulo (cd_capitulo);
-ALTER TABLE ata ADD CONSTRAINT cd_gestaoAta FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
-ALTER TABLE cargo ADD CONSTRAINT cd_gestaoCargo FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
-ALTER TABLE comissao ADD CONSTRAINT cd_gestaoComissao FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
-ALTER TABLE gestao ADD CONSTRAINT cd_capituloGestao FOREIGN KEY (cd_capitulo) REFERENCES capitulo (cd_capitulo);
-ALTER TABLE reuniao ADD CONSTRAINT cd_gestaoReuniao FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
-ALTER TABLE mensalidade ADD CONSTRAINT cd_demolayMensalidade FOREIGN KEY (cd_demolay) REFERENCES demolay (cd_demolay);
-
-INSERT INTO capitulo (nm_capitulo) VALUES ("Praia Grande");
-INSERT INTO gestao (cd_capitulo) VALUES ((SELECT cd_capitulo FROM capitulo WHERE cd_capitulo = 0));
-INSERT INTO demolay (cd_cid_demolay, nm_demolay, cd_capitulo) VALUES (74837, "Andr�", (SELECT cd_capitulo FROM capitulo WHERE cd_capitulo = 0));
-INSERT INTO reuniao (dt_reuniao, nm_pauta_reuniao, cd_gestao) VALUES ("09/12/2018", "escreva pauta aqui", (SELECT cd_gestao FROM gestao WHERE cd_gestao = 0));
-INSERT INTO ata (dt_ata, nm_tipo_ata, cd_gestao) VALUES ("09/12/2018", "Nova", (SELECT cd_gestao FROM gestao WHERE cd_gestao = 0));
-INSERT INTO cargo (nm_cargo, cd_gestao) VALUES ("Ativo", (SELECT cd_gestao FROM gestao WHERE cd_gestao = 0));
-INSERT INTO comissao (nm_comissao, cd_gestao) VALUES ("Diversao", (SELECT cd_gestao FROM gestao WHERE cd_gestao = 0));
-INSERT INTO mensalidade (dt_mensalidade, dt_pagamento_mensalidade, cd_demolay) VALUES ("09/12/2018", "09/12/2018", (SELECT cd_demolay FROM demolay WHERE cd_demolay = 0));
-
 CREATE TABLE membro(
 	cd_membro INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	cd_demolay INT NOT NULL,
 	cd_comissao INT NOT NULL
 );
-ALTER TABLE membro ADD CONSTRAINT cd_demolayMembro FOREIGN KEY (cd_demolay) REFERENCES demolay (cd_demolay);
-ALTER TABLE membro ADD CONSTRAINT cd_comissaoMembro FOREIGN KEY (cd_comissao) REFERENCES comissao (cd_comissao);
-
 CREATE TABLE usuario(
 	cd_usuario INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	nm_usuario varchar(20) NOT NULL,
-	nm_SENHA_usuario varchar(20) NOT NULL,
+	nm_senha_usuario varchar(20) NOT NULL,
 	cd_demolay INT NOT NULL
 );
-ALTER TABLE USUARIO ADD CONSTRAINT cd_demolayUsuario FOREIGN KEY (cd_demolay) REFERENCES demolay(cd_demolay);
 
+ALTER TABLE ata ADD CONSTRAINT cd_gestaoAta FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
+ALTER TABLE comissao ADD CONSTRAINT cd_gestaoComissao FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
+ALTER TABLE comissao ADD CONSTRAINT cd_demolayComissao FOREIGN KEY (cd_demolay) REFERENCES demolay (cd_demolay);
+ALTER TABLE demolay ADD CONSTRAINT cd_capituloDemolay FOREIGN KEY (cd_capitulo) REFERENCES capitulo (cd_capitulo);
+ALTER TABLE gestao ADD CONSTRAINT cd_capituloGestao FOREIGN KEY (cd_capitulo) REFERENCES capitulo (cd_capitulo);
+ALTER TABLE membro ADD CONSTRAINT cd_demolayMembro FOREIGN KEY (cd_demolay) REFERENCES demolay (cd_demolay);
+ALTER TABLE membro ADD CONSTRAINT cd_comissaoMembro FOREIGN KEY (cd_comissao) REFERENCES comissao (cd_comissao);
+ALTER TABLE mensalidade ADD CONSTRAINT cd_demolayMensalidade FOREIGN KEY (cd_demolay) REFERENCES demolay (cd_demolay);
+ALTER TABLE nominata ADD CONSTRAINT cd_gestaoNominata FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
+ALTER TABLE nominata ADD CONSTRAINT cd_demolayNominata FOREIGN KEY (cd_demolay) REFERENCES demolay (cd_demolay);
+ALTER TABLE nominata ADD CONSTRAINT cd_oficialNominata FOREIGN KEY (cd_oficial) REFERENCES oficial (cd_oficial);
+ALTER TABLE reuniao ADD CONSTRAINT cd_gestaoReuniao FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
+ALTER TABLE usuario ADD CONSTRAINT cd_demolayUsuario FOREIGN KEY (cd_demolay) REFERENCES demolay(cd_demolay);
+
+INSERT INTO capitulo (nm_capitulo) VALUES ("Praia Grande");
+INSERT INTO gestao (cd_capitulo) VALUES ((SELECT cd_capitulo FROM capitulo WHERE cd_capitulo = 0));
+INSERT INTO demolay (cd_cid_demolay, nm_demolay, cd_capitulo) VALUES (74837, "Andr�", (SELECT cd_capitulo FROM capitulo WHERE cd_capitulo = 0));
+INSERT INTO reuniao (dt_reuniao, nm_pauta_reuniao, cd_gestao) VALUES ("09/12/2018", "escreva pauta aqui", (SELECT cd_gestao FROM gestao WHERE cd_gestao = 0));
+INSERT INTO ata (dt_ata, nm_tipo_ata, cd_gestao) VALUES ("09/12/2018", "Nova", (SELECT cd_gestao FROM gestao WHERE cd_gestao = 0));
+INSERT INTO cargo (nm_cargo, cd_gestao) VALUES ("Ativo", (SELECT cd_gestao FROM gestao WHERE cd_gestao = 0));
+INSERT INTO comissao (nm_comissao, cd_gestao) VALUES ("Diversao", (SELECT cd_gestao FROM gestao WHERE cd_gestao = 0));
+INSERT INTO mensalidade (dt_mensalidade, dt_pagamento_mensalidade, cd_demolay) VALUES ("09/12/2018", "09/12/2018", (SELECT cd_demolay FROM demolay WHERE cd_demolay = 0));
 INSERT INTO usuario (nm_usuario, nm_senha_usuario, cd_demolay) VALUES ('andrelfs', 'forna', 1);
+
+INSERT INTO oficial (cd_oficial, nm_oficial) VALUES 
+	(null, "Mestre Conselheiro"), (null, "1º Conselheiro"), (null, "2º Conselheiro"), (null, "Escrivão"), (null, "Tesoureiro"), 
+	(null,"Orador"), (null, "1º Diácono"), (null, "2º Diácono"), (null, "Capelão"), (null, "Porta Estandarte"), 
+	(null, "Mestre de Cerimônias"), (null, "Hospitaleiro"), (null, "Sentinela"), (null, "Organista"), 
+	(null, "1º Preceptor"), (null, "2º Preceptor"), (null, "3º Preceptor"), (null, "4º Preceptor"), (null, "5º Preceptor"), (null, "6º Preceptor"), (null, "7º Preceptor");
