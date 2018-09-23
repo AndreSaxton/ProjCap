@@ -1,3 +1,8 @@
+/*
+fazer função p fazer nominata
+fazer função p fazer ata
+fazer função p mudar de gestao
+*/
 CREATE DATABASE projCap;
 CREATE TABLE capitulo(
 	cd_capitulo INT NOT NULL PRIMARY KEY,
@@ -46,7 +51,7 @@ CREATE TABLE ata(
 	cd_ata INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	dt_ata DATE NOT NULL,
 	nm_tipo_ata VARCHAR(10) NOT NULL,
-	cd_gestao INT NOT NULL
+	cd_reuniao INT NOT NULL
 );
 CREATE TABLE membro(
 	cd_membro INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -60,7 +65,7 @@ CREATE TABLE usuario(
 	cd_demolay INT NOT NULL
 );
 
-ALTER TABLE ata ADD CONSTRAINT cd_gestaoAta FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
+ALTER TABLE ata ADD CONSTRAINT cd_reuniaoAta FOREIGN KEY (cd_reuniao) REFERENCES reuniao (cd_reuniao);
 ALTER TABLE comissao ADD CONSTRAINT cd_gestaoComissao FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
 ALTER TABLE comissao ADD CONSTRAINT cd_demolayComissao FOREIGN KEY (cd_demolay) REFERENCES demolay (cd_demolay);
 ALTER TABLE demolay ADD CONSTRAINT cd_capituloDemolay FOREIGN KEY (cd_capitulo) REFERENCES capitulo (cd_capitulo);
