@@ -253,7 +253,16 @@
             $conexao->query($consulta);
         }
         function mudarAta(){}//saltarAta ja salva as resalvas
-        function salvarPresenca(){}
+        function salvarPresenca($cdReuniao, $cdDemolays){
+            $conexao = $this->conexao;
+            $consulta = "INSERT INTO presenca 
+            (cd_reuniao, cd_demolay) 
+            VALUES (
+                (SELECT cd_reuniao FROM reuniao WHERE cd_reuniao = $cdReuniao),
+                (SELECT cd_demolay FROM demolay WHERE cd_demolay = $cdDemolays)
+            );";
+            $conexao->query($consulta);
+        }
     }
     class presidenteComissao extends demolay{
         function __construct($cdDemolay){

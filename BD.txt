@@ -1,6 +1,5 @@
 /*
 fazer função p fazer nominata
-fazer função p fazer ata
 fazer função p mudar de gestao
 */
 CREATE DATABASE projCap;
@@ -64,6 +63,11 @@ CREATE TABLE usuario(
 	nm_senha_usuario varchar(20) NOT NULL,
 	cd_demolay INT NOT NULL
 );
+CREATE TABLE presenca(
+	cd_presenca INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	cd_reuniao INT NOT NULL,
+	cd_demolay INT NOT NULL
+);
 
 ALTER TABLE ata ADD CONSTRAINT cd_reuniaoAta FOREIGN KEY (cd_reuniao) REFERENCES reuniao (cd_reuniao);
 ALTER TABLE comissao ADD CONSTRAINT cd_gestaoComissao FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
@@ -78,6 +82,8 @@ ALTER TABLE nominata ADD CONSTRAINT cd_demolayNominata FOREIGN KEY (cd_demolay) 
 ALTER TABLE nominata ADD CONSTRAINT cd_oficialNominata FOREIGN KEY (cd_oficial) REFERENCES oficial (cd_oficial);
 ALTER TABLE reuniao ADD CONSTRAINT cd_gestaoReuniao FOREIGN KEY (cd_gestao) REFERENCES gestao (cd_gestao);
 ALTER TABLE usuario ADD CONSTRAINT cd_demolayUsuario FOREIGN KEY (cd_demolay) REFERENCES demolay(cd_demolay);
+ALTER TABLE presenca ADD CONSTRAINT cd_reuniaoPresenca FOREIGN KEY (cd_reuniao) REFERENCES reuniao(cd_reuniao);
+ALTER TABLE presenca ADD CONSTRAINT cd_demolayPresenca FOREIGN KEY (cd_demolay) REFERENCES demolay(cd_demolay);
 
 INSERT INTO capitulo (nm_capitulo) VALUES ("Praia Grande");
 INSERT INTO gestao (cd_capitulo) VALUES ((SELECT cd_capitulo FROM capitulo WHERE cd_capitulo = 0));
