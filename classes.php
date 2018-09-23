@@ -245,8 +245,14 @@
         function adicionarGasto(){}
     }
     class escrivao extends demolay{
-        function salvarAta(){}
-        function mudarAta(){}
+        function salvarAta($cdReuniao ,$ata, $tipo){
+            //ver como salvar a ata
+            $conexao = $this->conexao;
+            $consulta = "INSERT INTO ata (nm_tipo_ata, cd_reuniao) 
+            VALUES ('$tipo',(SELECT cd_reuniao FROM reuniao WHERE cd_reuniao = $cdReuniao));";
+            $conexao->query($consulta);
+        }
+        function mudarAta(){}//saltarAta ja salva as resalvas
         function salvarPresenca(){}
     }
     class presidenteComissao extends demolay{
