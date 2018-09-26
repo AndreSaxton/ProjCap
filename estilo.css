@@ -136,7 +136,7 @@
         margin: 0px;
         font-size: 60px;
     }
-    input, select, textarea{
+    input, select, textarea, button{
         font-size: 60px;
         resize: none;
     }
@@ -271,4 +271,20 @@
         border: solid black 1px;
     }
     /*FIM utilizado na pag demolay*/
+    /*utilizado na pag Escrivao*/
+    .ata .form, .presenca .form{
+        display: none;
+    }
+    .ata:hover .form, .presenca:hover .form{
+        display: block;
+    }
+    #iPauta{
+        height: 10em;
+        width: 100%;
+        
+    }
+    table, tr, tbody{
+        width: 100%;
+    }
+    /*FIM utilizado na pag Escrivao*/
 }

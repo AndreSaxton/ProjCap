@@ -92,6 +92,7 @@
 
             $escrivao = new escrivao($cdDemolay);
             $escrivao->salvarPresenca($reuniao, $demolaysPresentes);
+            header("location: escrivao.php?");
         }
     ?>
 
@@ -165,7 +166,7 @@
                             <button type="button" onclick="addPresenca();">Adicionar</button>
                         </td>
                     </tr>
-                    <tr><td><input type="text" id="arrayDemolays" name="nDemolays"></td><td><input type="submit" onclick="return salvarPresencas();" value="Salvar" name="salvarPresenca"></td></tr>
+                    <tr><td><input type="hidden" id="arrayDemolays" name="nDemolays"></td><td><input type="submit" onclick="return salvarPresencas();" value="Salvar" name="salvarPresenca"></td></tr>
                 </table>
             </form>
         </div>
