@@ -3,7 +3,7 @@
 fazer pagarMensalidade de demolay
 fazer mudarReuniao, apagarReuniao, mudarGestao e fazerNominata de mestreConselheiro
 fazer darBaixaMensalidade e adicionarGasto de tesoureiro
-adicionar verPresenca para demolay e escrivao
+adicionar verPresenca e verPresencas para demolay e escrivao
 */
     class usuario{
         function logar($login, $senha){
