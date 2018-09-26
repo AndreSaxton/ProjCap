@@ -18,7 +18,26 @@
     $demolays = $demolay->verDemolays();
     $comissoes = $demolay->verComissao();
     $nominata = $demolay->verNominata();
+    $presencas = $demolay->verPresenca();
     ?>
+
+    <div class="presencas">
+        <h3>Presenças</h3>
+        <table class="presenca">
+        <tr><td>Gestão</td><td>cd reuniao</td><td>Reunião</td></tr>
+        <?php
+        if($presencas!=null){
+            for ($index0=0; $index0 < sizeof($presencas); $index0++) { 
+                echo "<tr>";
+                for ($index1=0; $index1 < 3; $index1++) { 
+                    echo "<td>".$presencas[$index0][$index1]."</td>";
+                }
+                echo "</tr>";
+            }
+        }
+        ?>
+        </table>
+    </div>
 
     <div class="nominata">
         <h3>Nominata</h3>

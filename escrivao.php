@@ -77,6 +77,10 @@
         $demolay = new demolay($cdDemolay);
         $demolays = $demolay->verDemolays();
         $reunioes = $demolay->verReunioes();
+        $escrivao = new escrivao($cdDemolay);
+        $presencas = $escrivao->verPresencas();
+        //echo "<pre>";
+        //var_dump($presencas);
 
         if(!empty($_REQUEST["salvarAta"])){
             $reuniao = $_REQUEST["nReuniao"];
@@ -95,6 +99,34 @@
             header("location: escrivao.php?");
         }
     ?>
+
+    alterar layout das presenças
+    <div class="presencas">
+        <h3>Presenças</h3>
+        <table class="presenca">
+        <tr><td>cd reuniao</td><td>Reunião</td></tr>
+        <?php
+        if($presencas!=null){
+            for ($index0=0; $index0 < sizeof($presencas); $index0++) { 
+                echo "<tr>";
+                for ($index1=0; $index1 < 3; $index1++) { 
+                    echo "<td>";
+                    if($index1==2){
+                        if(isset($presencas[$index0][$index1]))
+                            for ($index2=0; $index2 < sizeof($presencas[$index0][$index1]); $index2++) { 
+                                echo $presencas[$index0][$index1][$index2]."<br>";
+                            }
+                    }
+                    else
+                        echo $presencas[$index0][$index1];
+                    echo"</td>";
+                }
+                echo "</tr>";
+            }
+        }
+        ?>
+        </table>
+    </div>
 
     <div class="ata">
         <label>Salvar Ata de Reunião</label>
@@ -134,7 +166,7 @@
     </div>
 
     <div class="presenca">
-        <label>Salvar Ata de Reunião</label>
+        <label>Salvar Presença</label>
         <div class="form">
             <form action="#" method="post">
                 <table id="tbPresentes">

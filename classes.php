@@ -51,10 +51,12 @@ adicionar verPresenca e verPresencas para demolay e escrivao
                     $this->nome = $info['nm_demolay'];
                     $this->capitulo = $info['nm_capitulo'];
                     $this->gestao = $info['nm_gestao'];
+                    $this->codigo = $info['cd_demolay'];
                 }
             }
         }
         public $conexao;
+        public $codigo;
         
         public $cid;
         public $nome;
@@ -62,7 +64,30 @@ adicionar verPresenca e verPresencas para demolay e escrivao
         public $gestao;
 
         function pagarMensalidade(){}
-        function verPresenca(){}
+        function verPresenca(){
+            $conexao = $this->conexao;
+            $consulta = "SELECT presenca.*, demolay.nm_demolay, reuniao.*
+            FROM `presenca`
+            JOIN demolay ON demolay.cd_demolay = presenca.cd_demolay
+            JOIN reuniao ON reuniao.cd_reuniao = presenca.cd_reuniao
+            WHERE demolay.cd_demolay = $this->codigo
+            ORDER BY reuniao.dt_reuniao";
+            $busca = $conexao->query($consulta);
+            $rows = $busca->num_rows;
+            if($rows == 0){ //verifica se a informação chegou
+                echo "falha ao buscar";
+            }else{
+                $presencas = array();
+                $index0 = 0;
+                while($info = $busca->fetch_assoc()){
+                    $presencas[$index0][0] = $info['cd_gestao'];
+                    $presencas[$index0][1] = $info['cd_reuniao'];
+                    $presencas[$index0][2] = $info['dt_reuniao'];
+                    $index0++;
+                }
+                return $presencas;
+            }
+        }
         function verMensalidade(){
             $conexao = $this->conexao;
             $consulta = "SELECT mensalidade.*, nm_demolay FROM mensalidade 
@@ -277,7 +302,44 @@ adicionar verPresenca e verPresencas para demolay e escrivao
             $consulta.=";";
             $conexao->query($consulta);
         }
-        function verPresencas(){}
+        function verPresencas(){
+            $conexao = $this->conexao;
+            $consulta = "SELECT reuniao.cd_reuniao, reuniao.dt_reuniao FROM reuniao";
+            $busca = $conexao->query($consulta);
+            $rows = $busca->num_rows;
+            if($rows == 0){ //verifica se a informação chegou
+                echo "falha ao buscar";
+            }else{
+                $presencas = array();
+                $index0 = 0;
+                while($info = $busca->fetch_assoc()){
+                    //$presencas[$index0][0] = $info['cd_gestao'];
+                    $presencas[$index0][0] = $info['cd_reuniao'];
+                    $presencas[$index0][1] = $info['dt_reuniao'];
+
+                    //$presencas[$index0][2];//DMs presentes
+                    $consulta = "SELECT presenca.*, demolay.nm_demolay
+                    FROM `presenca`
+                    JOIN demolay ON demolay.cd_demolay = presenca.cd_demolay
+                    WHERE presenca.cd_reuniao = ".$info['cd_reuniao'];
+
+                    $busca2 = $conexao->query($consulta);
+                    $rows = $busca2->num_rows;
+                    if($rows == 0){ //verifica se a informação chegou
+                        //echo "$comissao nao tem membros";
+                    }else{
+                        $membros = 0;
+                        while($info = $busca2->fetch_assoc()){
+                            $presencas[$index0][2][$membros] = $info['nm_demolay'];
+                            $membros++;
+                        }
+                    }
+
+                    $index0++;
+                }
+                return $presencas;
+            }
+        }
     }
     class presidenteComissao extends demolay{
         function __construct($cdDemolay){
