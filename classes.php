@@ -253,14 +253,22 @@
             $conexao->query($consulta);
         }
         function mudarAta(){}//saltarAta ja salva as resalvas
-        function salvarPresenca($cdReuniao, $cdDemolays){
+        function salvarPresenca($cdReuniao, $arrayDemolays){
             $conexao = $this->conexao;
             $consulta = "INSERT INTO presenca 
             (cd_reuniao, cd_demolay) 
-            VALUES (
-                (SELECT cd_reuniao FROM reuniao WHERE cd_reuniao = $cdReuniao),
-                (SELECT cd_demolay FROM demolay WHERE cd_demolay = $cdDemolays)
-            );";
+            VALUES ";
+            $arrayDemolays = (json_decode($arrayDemolays));
+            for ($cont=0; $cont < sizeof($arrayDemolays); $cont++) {
+                $cdDemolay = $arrayDemolays[$cont][0];
+                $consulta .= "(
+                    (SELECT cd_reuniao FROM reuniao WHERE cd_reuniao = $cdReuniao),
+                    (SELECT cd_demolay FROM demolay WHERE cd_demolay = $cdDemolay)
+                )";
+                if ($cont < sizeof($arrayDemolays)-1)
+                    $consulta.=", ";
+            }
+            $consulta.=";";
             $conexao->query($consulta);
         }
     }

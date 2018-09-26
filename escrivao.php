@@ -4,36 +4,65 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="estilo.css">
     <script>
-        var cdDemolaysPresentes = [];
-        var nmDemolaysPresentes = [];
         var cont = 0;
-        var primeiroRegistro = true;
+        var demolays = new Array();
         
+        function validarAta(){
+            // a fazer
+            //return false;
+        }
         function addPresenca(){
             let cdDemolay = document.getElementById("iDemolay").value;
             let nmDemolay = document.getElementById("iDemolay").options[document.getElementById("iDemolay").selectedIndex].text;
-            
+
             if (cdDemolay) {
-                cdDemolaysPresentes [cont] = cdDemolay;
-                nmDemolaysPresentes [cont] = nmDemolay;
-                
-                console.log(cdDemolaysPresentes+" "+nmDemolaysPresentes);
+                demolays[cont] = new Array();
+                demolays [cont][0] = cdDemolay;
+                demolays [cont][1] = nmDemolay;
 
-                let para =  document.createElement("p");
-                let text = document.createTextNode(nmDemolaysPresentes [cont]);
+                let text1 = document.createTextNode(demolays[cont][1]);
+                let text2 = document.createTextNode(demolays[cont][1]);
+                let para1 =  document.createElement("input");
+                let para2 =  document.createElement("p");
                 let tb = document.getElementById("tbPresentes");
-                //let tr = document.getElementById("trPresentes");
                 let tr =  document.createElement("tr");
-                let td = document.createElement("td");
+                let td1 = document.createElement("td");
                 let td2 = document.createElement("td");
-                para.appendChild(text);
-                td.appendChild(para);
-                tr.appendChild(td, td2);
+
+                para1.setAttribute("type", "button");
+                para1.setAttribute("value", "Excluir");
+                para1.setAttribute("onclick", "excluirLinha(linha"+cont+", "+cont+")");
+                tr.setAttribute("id", "linha"+cont);
+
+                //para1.appendChild(text1);
+                para2.appendChild(text2);
+                td1.appendChild(para1);
+                td2.appendChild(para2);
+                tr.appendChild(td1);
+                tr.appendChild(td2);
                 tb.appendChild(tr);
                 
-                tb.appendChild(tr);
-
+                console.log("criado");
+                console.log(demolays);
                 cont++;
+            }
+        }
+        function excluirLinha(linha, id){
+            //console.log(linha);
+            linha.parentNode.removeChild(linha);
+            demolays.splice(id, 1);
+            console.log("retirado");
+            console.log(demolays);
+        }
+        function salvarPresencas(){
+            var jsonDemolay = JSON.stringify(this.demolays);
+            document.getElementById("arrayDemolays").value = jsonDemolay;
+            console.log(jsonDemolay);
+            if (document.getElementById("arrayDemolays").value=="[]") {
+                return false;
+            }
+            else{
+                return true;
             }
         }
     </script>
@@ -62,7 +91,7 @@
             $demolaysPresentes = $_REQUEST["nDemolays"];
 
             $escrivao = new escrivao($cdDemolay);
-            //$escrivao->salvarPresenca($reuniao, $demolaysPresentes);
+            $escrivao->salvarPresenca($reuniao, $demolaysPresentes);
         }
     ?>
 
@@ -136,8 +165,7 @@
                             <button type="button" onclick="addPresenca();">Adicionar</button>
                         </td>
                     </tr>
-                    <tr><td></td><td><input type="submit" onclick="return validarAta();" value="Salvar" name="salvarAta"></td></tr>
-                    <tr id="trPresentes"><td></td><td></td></tr>
+                    <tr><td><input type="text" id="arrayDemolays" name="nDemolays"></td><td><input type="submit" onclick="return salvarPresencas();" value="Salvar" name="salvarPresenca"></td></tr>
                 </table>
             </form>
         </div>
