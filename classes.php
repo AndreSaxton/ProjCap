@@ -1,5 +1,10 @@
 <?php
-//adicionar session pra guardar a class demolay
+/*
+fazer pagarMensalidade de demolay
+fazer mudarReuniao, apagarReuniao, mudarGestao e fazerNominata de mestreConselheiro
+fazer darBaixaMensalidade e adicionarGasto de tesoureiro
+adicionar verPresenca para demolay e escrivao
+*/
     class usuario{
         function logar($login, $senha){
             $conexao = new mysqli('localhost', 'root','', 'projcap');
@@ -57,6 +62,7 @@
         public $gestao;
 
         function pagarMensalidade(){}
+        function verPresenca(){}
         function verMensalidade(){
             $conexao = $this->conexao;
             $consulta = "SELECT mensalidade.*, nm_demolay FROM mensalidade 
@@ -271,6 +277,7 @@
             $consulta.=";";
             $conexao->query($consulta);
         }
+        function verPresencas(){}
     }
     class presidenteComissao extends demolay{
         function __construct($cdDemolay){
