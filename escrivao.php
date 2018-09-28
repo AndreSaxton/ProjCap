@@ -100,11 +100,10 @@
         }
     ?>
 
-    alterar layout das presenças
     <div class="presencas">
-        <h3>Presenças</h3>
+        <label>Presenças</label>
         <table class="presenca">
-        <tr><td>cd reuniao</td><td>Reunião</td></tr>
+        <tr><td>cd reuniao</td><td>Reunião</td><td>Presentes</td></tr>
         <?php
         if($presencas!=null){
             for ($index0=0; $index0 < sizeof($presencas); $index0++) { 

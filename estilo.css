@@ -272,10 +272,10 @@
     }
     /*FIM utilizado na pag demolay*/
     /*utilizado na pag Escrivao*/
-    .ata .form, .presenca .form{
+    .ata .form, .presenca .form, .presencas .presenca{
         display: none;
     }
-    .ata:hover .form, .presenca:hover .form{
+    .ata:hover .form, .presenca:hover .form, .presencas:hover .presenca{
         display: block;
     }
     #iPauta{
