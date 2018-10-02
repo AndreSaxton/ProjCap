@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="estilo.css">
+    <script src="openDivs.js"></script>
 </head>
 <body>
     <?php
@@ -15,18 +16,18 @@
     ?>
 
     <div class="mensalidades">
-        <h2>Mensalidades</h2>
-            <table class="mensalidades">
-            <tr><td>N</td><td>Mes</td><td>Pagamento</td><td>Demolay</td></tr>
-            <?php
-            for ($index0=0; $index0 < sizeof($mensalidades); $index0++) { 
-                echo "<tr>";
-                for ($index1=0; $index1 < 4; $index1++) { 
-                    echo "<td>".$mensalidades[$index0][$index1]."</td>";
-                }
-                echo "</tr>";
-            } ?>
-        </table>
+        <h3 onclick="show('mensalidades')">Mensalidades</h3>
+            <table class="hide" id="mensalidades">
+                <tr><td>N</td><td>Mes</td><td>Pagamento</td><td>Demolay</td></tr>
+                <?php
+                for ($index0=0; $index0 < sizeof($mensalidades); $index0++) { 
+                    echo "<tr>";
+                    for ($index1=0; $index1 < 4; $index1++) { 
+                        echo "<td>".$mensalidades[$index0][$index1]."</td>";
+                    }
+                    echo "</tr>";
+                } ?>
+            </table>
     </div>
     
 </body>

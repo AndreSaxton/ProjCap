@@ -3,27 +3,27 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="estilo.css">
+    <script src="openDivs.js"></script>
 </head>
 <body>
     <?php
-    //require_once('index.php');//cabecalho
-    session_start();
-    require_once('menu.html');//menu
-
-    require_once('classes.php');
-    $cdDemolay = $_SESSION['cd_demolay'];
-    $demolay = new demolay($cdDemolay);
-    $reunioes = $demolay->verReunioes();
-    $mensalidades = $demolay->verMensalidade();
-    $demolays = $demolay->verDemolays();
-    $comissoes = $demolay->verComissao();
-    $nominata = $demolay->verNominata();
-    $presencas = $demolay->verPresenca();
+        //require_once('index.php');//cabecalho
+        session_start();
+        require_once('menu.html');//menu
+        require_once('classes.php');
+        $cdDemolay = $_SESSION['cd_demolay'];
+        $demolay = new demolay($cdDemolay);
+        $reunioes = $demolay->verReunioes();
+        $mensalidades = $demolay->verMensalidade();
+        $demolays = $demolay->verDemolays();
+        $comissoes = $demolay->verComissao();
+        $nominata = $demolay->verNominata();
+        $presencas = $demolay->verPresenca();
     ?>
 
     <div class="presencas">
-        <h3>Presenças</h3>
-        <table class="presenca">
+        <h3 onclick="show('tbPresenca')">Presenças</h3>
+        <table class="hide" id="tbPresenca">
         <tr><td>Gestão</td><td>cd reuniao</td><td>Reunião</td></tr>
         <?php
         if($presencas!=null){
@@ -40,8 +40,8 @@
     </div>
 
     <div class="nominata">
-        <h3>Nominata</h3>
-        <table class="oficiais">
+        <h3 onclick="show('tbOficiais')">Nominata</h3>
+        <table class="hide" id="tbOficiais">
         <tr><td>Gestão</td><td>Cargo</td><td>CID</td><td>Demolay</td></tr>
         <?php
         if($nominata!=null){
@@ -58,8 +58,8 @@
     </div>
 
     <div class="mensalidades">
-        <h3>Mensalidades</h3>
-        <table class="mensalidades">
+        <h3 onclick="show('tbMensalidades')">Mensalidades</h3>
+        <table class="hide" id="tbMensalidades">
         <tr><td>N</td><td>Mes</td><td>Pagamento</td><td>Demolay</td></tr>
         <?php
         if($mensalidades!=null){
@@ -76,8 +76,8 @@
     </div>
 
     <div class="membros">
-        <h3>Membros</h3>
-        <table class="membros">
+        <h3 onclick="show('tbMembros')">Membros</h3>
+        <table class="hide" id="tbMembros">
         <tr><td>N</td><td>CID</td><td>Nome</td><td>Capitulo</td></tr>
         <?php
         for ($index0=0; $index0 < sizeof($demolays); $index0++) { 
@@ -92,34 +92,34 @@
     </div>
 
     <div class="comissoes">
-        <h3>Comissões</h3>
-        <table class="comissao">
-        <tr><td>N</td><td>Nome da Comissão</td><td>Presidente</td><td>Gestão</td><td>Membros</td></tr>
-        <?php
-        for ($index0=0; $index0 < sizeof($comissoes); $index0++) { 
-            echo "<tr>";
-            for ($index1=0; $index1 < 5; $index1++) {
-                echo "<td>";
-                if($index1==4){
-                    if(isset($comissoes[$index0][$index1]))
-                        for ($index2=0; $index2 < sizeof($comissoes[$index0][$index1]); $index2++) { 
-                            echo $comissoes[$index0][$index1][$index2]."<br>";
-                        }
-                }
-                else
-                    echo $comissoes[$index0][$index1];
-                echo "</td>";
-            }
-            echo "</tr>";
-        }
-        ?>
-        </table>
+        <h3 onclick="show('divComissao')">Comissões</h3>
+        <div class="hide" id="divComissao">
+            <?php for ($index0=0; $index0 < sizeof($comissoes) ; $index0++) { ?>
+                <div class='container'>
+                    <div class='item-a'>
+                        <p>Comissão: <?php echo $comissoes[$index0][0]; ?>
+                        <br>
+                        <?php echo $comissoes[$index0][1]; ?></p>
+                    </div>
+                    <div class='item-b'>
+                        <p>
+                        <?php
+                            if(isset($comissoes[$index0][4]))
+                                for ($index1=0; $index1 < sizeof($comissoes[$index0][4]); $index1++) { 
+                                    echo $comissoes[$index0][4][$index1]."<br>";
+                                }
+                        ?>
+                        </p>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
     </div>
-
+    
     <div class="calendario">
-        <h3>Reuniões</h3>
-        <div class="containers">
-            <?php for ($index0=0; $index0 < sizeof($reunioes) ; $index0++) { ?>
+        <h3 onclick="show('divCalendario')">Reuniões</h3>
+        <div class="hide" id="divCalendario">
+        <?php for ($index0=0; $index0 < sizeof($reunioes) ; $index0++) { ?>
                 <div class='container'>
                     <div class='item-a'>
                         <p>Reunião: <?php echo $reunioes[$index0][0]; ?>
@@ -127,44 +127,12 @@
                         <?php echo $reunioes[$index0][1]; ?></p>
                     </div>
                     <div class='item-b'>
-                        <?php echo $reunioes[$index0][2]; ?>
+                        <p><?php echo $reunioes[$index0][2]; ?></p>
                     </div>
                 </div>
             <?php } ?>
         </div>
     </div>
-
-    <!--div id="calendario">
-        <h3>Reuniões</h3>
-        <div class="containers">
-            <div class='container'>
-                <div class='item-a'>
-                    <p>Reunião: 1 <br> 2018/12/12</p>
-                </div>
-                <div class='item-b'>
-                    pauta
-                </div>
-            </div>
-            <div class='container'>
-                <div class='item-a'>
-                    <p>Reunião: 1 <br> 2018/12/12</p>
-                </div>
-                <div class='item-b'>
-                    pauta
-                </div>
-            </div>
-            <div class='container'>
-                <div class='item-a'>
-                    <p>Reunião: 1 <br> 2018/12/12</p>
-                </div>
-                <div class='item-b'>
-                    pauta
-                </div>
-            </div>
-        </div>
-    </div-->
-
-    
 
 </body>
 </html>

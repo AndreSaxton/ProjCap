@@ -2,36 +2,36 @@
 <html>
 <head>
     <meta charset="utf-8" />
-
+    <script src="openDivs.js"></script>
     <script>
-    function validarReuniao(){
-        let data = document.getElementById("iData").value;
-        let pauta = document.getElementById("iPauta").value;
-        
-        if(data==""||pauta=="")
-            return false;
-        else
-            return true;
-    }
-    function validarMembro(){
-        let cid = document.getElementById("iCid").value;
-        let nome = document.getElementById("iNome").value;
-        let capitulo = document.getElementById("iCapitulo").value;
-        
-        if(cid==""||nome==""||capitulo=="")
-            return false;
-        else
-            return true;
-    }
-    function validarComissao(){
-        let comissao = document.getElementById("iComissao").value;
-        let presidente = document.getElementById("iPress").value;
-        
-        if(comissao==""||presidente=="")
-            return false;
-        else
-            return true;
-    }
+        function validarReuniao(){
+            let data = document.getElementById("iData").value;
+            let pauta = document.getElementById("iPauta").value;
+            
+            if(data==""||pauta=="")
+                return false;
+            else
+                return true;
+        }
+        function validarMembro(){
+            let cid = document.getElementById("iCid").value;
+            let nome = document.getElementById("iNome").value;
+            let capitulo = document.getElementById("iCapitulo").value;
+            
+            if(cid==""||nome==""||capitulo=="")
+                return false;
+            else
+                return true;
+        }
+        function validarComissao(){
+            let comissao = document.getElementById("iComissao").value;
+            let presidente = document.getElementById("iPress").value;
+            
+            if(comissao==""||presidente=="")
+                return false;
+            else
+                return true;
+        }
     </script>
 
     <link rel="stylesheet" href="estilo.css">
@@ -74,8 +74,8 @@
 ?>
 
 <div class="reunioes">
-    <label>Salvar nova Reunião</label>
-    <div class="form">
+    <h3 onclick="show('divReunioes')">Salvar nova Reunião</h3>
+    <div class="hide" id="divReunioes">
         <form action="#" method="post">
             <table>
                 <tr><td>Data:</td><td><input type="date" name="data" id="iData"></td></tr>
@@ -87,8 +87,8 @@
 </div>
 
 <div class="membros">
-    <label>Salvar novo Membro</label>
-    <div class="form">
+    <h3 onclick="show('divMembros')">Salvar novo Membro</h3>
+    <div class="hide" id="divMembros">
     <form action="#" method="post">
         <table>
             <tr><td>CID:</td><td><input type="number" name="cid" id="iCid"></td></tr>
@@ -101,8 +101,8 @@
 </div>
 
 <div class="comissoes">
-    <label>Salvar nova Comissão</label>
-    <div class="form">
+    <h3 onclick="show('divComissoes')">Salvar nova Comissão</h3>
+    <div class="hide" id="divComissoes">
     <form action="#" method="post">
         <table>
             <tr><td>Nome:</td><td><input type="text" name="nomeComissao" id="iComissao"></td></tr>

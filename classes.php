@@ -1,9 +1,8 @@
 <?php
 /*
-fazer pagarMensalidade de demolay
 fazer mudarReuniao, apagarReuniao, mudarGestao e fazerNominata de mestreConselheiro
+fazer pagarMensalidade de demolay
 fazer darBaixaMensalidade e adicionarGasto de tesoureiro
-adicionar verPresenca e verPresencas para demolay e escrivao
 */
     class usuario{
         function logar($login, $senha){
@@ -35,10 +34,12 @@ adicionar verPresenca e verPresencas para demolay e escrivao
         function __construct($cdDemolay){
             $this->conexao = new mysqli('localhost', 'root','', 'projcap');
             $conexao = $this->conexao;
-            $consulta = "SELECT * FROM demolay 
+            $consulta = "SELECT demolay.*, capitulo.nm_capitulo, gestao.nm_gestao
+            FROM demolay 
             JOIN capitulo ON capitulo.cd_capitulo = demolay.cd_capitulo 
             JOIN gestao ON gestao.cd_capitulo = capitulo.cd_capitulo
-            WHERE cd_demolay = $cdDemolay AND cd_gestao IN (SELECT MAX(gestao.cd_gestao) FROM gestao)";
+            WHERE demolay.cd_demolay = $cdDemolay 
+            AND gestao.cd_gestao IN (SELECT MAX(gestao.cd_gestao) FROM gestao)";
             $busca = $conexao->query($consulta);
             $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou

@@ -4,7 +4,6 @@
         margin: 0px;
         font-size: 20px;
     }
-
     input, select, textarea{
         font-size: 20px;
         resize: none;
@@ -38,21 +37,6 @@
     .opcao1{
         grid-area: opcao1;
     }
-    .opcao2{
-        grid-area: opcao2;
-    }
-    .opcao3{
-        grid-area: opcao3;
-    }
-    .opcao4{
-        grid-area: opcao4;
-    }
-    .opcao5{
-        grid-area: opcao5;
-    }
-    .opcao6{
-        grid-area: opcao6;
-    }
     #opcoes{
         margin: 0px;
         background-color: grey;
@@ -60,10 +44,7 @@
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: auto;
         grid-template-areas: 
-            "opcao1 opcao2 opcao3 opcao4 opcao5";
-        display: grid;
-    }
-    #opcoes:target{
+            "opcao1";
         display: grid;
     }
     a{
@@ -72,35 +53,29 @@
     }
     /*FIM utilizado no menu*/
     /*utilizado na pag MC*/
-    /*.reunioes .form, .membros .form, .comissoes .form{
-        display: none;
-    }
-    .reunioes:hover .form, .membros:hover .form, .comissoes:hover .form{
-        display: block;
-    }*/
     #iPauta{
         height: 10em;
         width: 99%;
-        
     }
     table, tr, tbody{
         width: 100%;
     }
     /*FIM utilizado na pag MC*/
-    /*utilizado na pag demolay*/
-    /*utilizado na div reunioes*/
+    /*utilizado nos grids*/
     .item-a {
         grid-area: header;
+        width: auto;
     }
     .item-b {
         grid-area: main;
+        width: auto;
     }
     .container {
         margin: 5px;
         background-color: rgb(167, 72, 72);
-
+        
         display: grid;
-        grid-template-columns: 30% 70%;
+        grid-template-columns: auto 70%;
         grid-template-rows: auto;
         grid-template-areas: 
             "header main";
@@ -108,27 +83,41 @@
     .containers{
         display: grid;
         width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    /*FIM utilizado nos grids*/
+    /*utilizado na pag demolay*/
+    .presencas .containers{
         grid-template-columns: repeat(4, 1fr);
     }
-    /*FIM utilizado na div reunioes*/
+    .presencas .containers .container{
+        background-color: aqua;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+        grid-template-areas: 
+            "header" "main";
+    }
     table.mensalidades td{
         border: solid black 1px;
-    }
-    /*
-    .mensalidades table, .membros table, .comissoes table, .calendario .containers{
-        display: none;
-    }
-    .mensalidades:hover table, .membros:hover table, .comissoes:hover table{
-        display: block;
-    }*/
-    .calendario:hover .containers{
-        display: grid;
     }
     td{
         width: auto;
         border: solid black 1px;
     }
     /*FIM utilizado na pag demolay*/
+    /*utilizado na pag Escrivao*/
+    table, tr, tbody{
+        width: 100%;
+    }
+    /*FIM utilizado na pag Escrivao*/
+    /*utilizado para abrir e fechar as divs*/
+    .hide{
+        display: none;
+    }
+    .show{
+        display: block;
+    }
+    /*FIM utilizado para abrir e fechar as divs*/
 }/**/
 /*celular*/
 @media (max-device-width: 700px){
@@ -157,7 +146,6 @@
         background-color: grey;
     }
     div#menu p#pMenu{
-        z-index: 2;
         padding: 20px;
     }
     div#menu p{
@@ -188,40 +176,7 @@
         color: black;
     }
     /*FIM utilizado no menu*/
-    /*utilizado no menu
-    div#menu{
-        background-color: grey;
-    }
-    div#menu p#pMenu{
-        z-index: 2;
-        margin-left: 10px;
-    }
-    div#menu p{
-        text-align: center;
-        margin: 0px;
-    }
-    #opcoes{
-        position: relative;
-        bottom: 0px;
-        height: 100%;
-        display: none;
-    }
-    #opcoes:target{
-        display: block;
-    }
-    a{
-        text-decoration: none;
-        color: black;
-    }
-    /*FIM utilizado no menu*/
-    
     /*utilizado na pag MC*/
-    .reunioes .form, .membros .form, .comissoes .form{
-        display: none;
-    }
-    .reunioes:hover .form, .membros:hover .form, .comissoes:hover .form{
-        display: block;
-    }
     #iPauta{
         height: 10em;
         width: 100%;
@@ -244,7 +199,7 @@
         background-color: rgb(167, 72, 72);
         display: grid;
         grid-template-columns: auto;
-        grid-template-rows: 30% 70%;
+        grid-template-rows: auto 1fr;
         grid-template-areas: 
             "header" "main";
     }
@@ -257,14 +212,11 @@
     table.mensalidades td{
         border: solid black 1px;
     }
-    .mensalidades table, .membros table, .comissoes table, .calendario .containers, .nominata .oficiais{
+    .hide{
         display: none;
     }
-    .mensalidades:hover table, .membros:hover table, .comissoes:hover table, .nominata:hover .oficiais{
+    .show{
         display: block;
-    }
-    .calendario:hover .containers{
-        display: grid;
     }
     td{
         width: auto;
@@ -272,11 +224,15 @@
     }
     /*FIM utilizado na pag demolay*/
     /*utilizado na pag Escrivao*/
-    .ata .form, .presenca .form, .presencas .presenca{
-        display: none;
+    .presencas .containers{
+        grid-template-columns: repeat(1, 1fr);
     }
-    .ata:hover .form, .presenca:hover .form, .presencas:hover .presenca{
-        display: block;
+    .presencas .containers .container{
+        background-color: aqua;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+        grid-template-areas: 
+            "header" "main";
     }
     #iPauta{
         height: 10em;

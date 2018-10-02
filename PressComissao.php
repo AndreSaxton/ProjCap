@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="estilo.css">
+    <script src="openDivs.js"></script>
 </head>
 <body>
 
@@ -18,29 +19,31 @@
 
     if ($pressComissao->comissao!="nenhuma") { ?>
         <div class="membros">
-            <h2>Adicionar membros à <?php echo$pressComissao->comissao ?></h2>
-            <form action="#" method="post" id="formAddMembroComissao">
-                <table>
-                    <tr>
-                        <td><label for="iMembro">Nome:</label></td>
-                        <td>
-                            <select name="nMembro" id="iMembro">
-                            <?php
-                            for ($index0=0; $index0 < sizeof($demolays); $index0++) {
-                                echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
-                            }
-                            ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr><td></td><td><input type="submit" value="Adicionar" name="addMembroComissao"></td></tr>
-                </table>
-            </form>
+            <h3 onclick="show('DivAddMembros')">Adicionar membros à <?php echo$pressComissao->comissao ?></h3>
+            <div class="hide" id="DivAddMembros">
+                <form action="#" method="post" id="formAddMembroComissao">
+                    <table>
+                        <tr>
+                            <td><label for="iMembro">Nome:</label></td>
+                            <td>
+                                <select name="nMembro" id="iMembro">
+                                <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                                ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr><td></td><td><input type="submit" value="Adicionar" name="addMembroComissao"></td></tr>
+                    </table>
+                </form>
+            </div>
         </div>
         
         <div class="membros">
-            <h2>Retirar membros da <?php echo$pressComissao->comissao?></h2>
-            <div class="form">
+            <h3 onclick="show('DivTirarMembros')">Retirar membros da <?php echo$pressComissao->comissao?></h3>
+            <div class="hide" id="DivTirarMembros">
                 <form action="#" method="post" id="formRetirarMembroComissao">
                     <table>
                         <tr>
@@ -63,8 +66,8 @@
         </div>
         
         <div class="comissoes">
-            <h2>Membros da Comissao de <?php echo$pressComissao->comissao?></h2>
-            <table class="comissao">
+            <h3 onclick="show('comissao')">Membros da Comissao de <?php echo$pressComissao->comissao?></h3>
+            <table class="hide" id="comissao">
                 <tr><td>N</td><td>Membros</td></tr>
                 <?php
                     for ($index0=0; $index0 < sizeof($membrosComissao); $index0++) { 

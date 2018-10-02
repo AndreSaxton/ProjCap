@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="estilo.css">
+    <script src="openDivs.js"></script>
     <script>
         var cont = 0;
         var demolays = new Array();
@@ -65,6 +66,16 @@
                 return true;
             }
         }
+        var idAntigoPresenca;
+        function showPresencas(id){
+            if(idAntigoPresenca!=null){
+                let elementoAntigo = document.getElementById(idAntigoPresenca);
+                elementoAntigo.className = "hide";
+            }
+            let elemento = document.getElementById(id);
+            elemento.className = "show";
+            idAntigoPresenca = id;
+        }
     </script>
 </head>
 <body>
@@ -99,37 +110,40 @@
             header("location: escrivao.php?");
         }
     ?>
-
+    
     <div class="presencas">
-        <label>Presenças</label>
-        <table class="presenca">
-        <tr><td>cd reuniao</td><td>Reunião</td><td>Presentes</td></tr>
+        <h3 onclick="show('divPresenca')">Presenças</h3>
+        <div class="hide" id="divPresenca">
         <?php
-        if($presencas!=null){
-            for ($index0=0; $index0 < sizeof($presencas); $index0++) { 
-                echo "<tr>";
-                for ($index1=0; $index1 < 3; $index1++) { 
-                    echo "<td>";
-                    if($index1==2){
-                        if(isset($presencas[$index0][$index1]))
-                            for ($index2=0; $index2 < sizeof($presencas[$index0][$index1]); $index2++) { 
-                                echo $presencas[$index0][$index1][$index2]."<br>";
-                            }
-                    }
-                    else
-                        echo $presencas[$index0][$index1];
-                    echo"</td>";
+            if($presencas!=null){
+                for ($index0=0; $index0 < sizeof($presencas); $index0++) { ?>
+                    <div class='container'>
+                        <div class='item-a'>
+                            <p><?php echo "Reunião: ".$presencas[$index0][0] ."<br>". $presencas[$index0][1];?></p>
+                            <?php if(isset($presencas[$index0][2])){?>
+                                <p onclick="showPresencas('reuniao<?php echo $presencas[$index0][0];?>')">Ver Presentes</p>
+                            <?php }?>
+                        </div>
+                        <div class='item-b'>
+                            <div class="hide" id='reuniao<?php echo $presencas[$index0][0];?>'>
+                                <?php
+                                    if(isset($presencas[$index0][2]))
+                                        for ($index1=0; $index1 < sizeof($presencas[$index0][2]); $index1++)
+                                            echo "<p>".$presencas[$index0][2][$index1]."</p>";
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php
                 }
-                echo "</tr>";
             }
-        }
         ?>
-        </table>
+        </div>
     </div>
 
     <div class="ata">
-        <label>Salvar Ata de Reunião</label>
-        <div class="form">
+        <h3 onclick="show('divAta')">Salvar Ata de Reunião</h3>
+        <div class="hide" id="divAta">
             <form action="#" method="post">
                 <table>
                     <tr>
@@ -165,8 +179,8 @@
     </div>
 
     <div class="presenca">
-        <label>Salvar Presença</label>
-        <div class="form">
+        <h3 onclick="show('divSalvarPresenca')">Salvar Presença</h3>
+        <div class="hide" id="divSalvarPresenca">
             <form action="#" method="post">
                 <table id="tbPresentes">
                     <tr>
