@@ -1,6 +1,6 @@
 <?php
 /*
-fazer mudarReuniao, apagarReuniao, mudarGestao e fazerNominata de mestreConselheiro
+fazer apagarReuniao, mudarGestao e fazerNominata de mestreConselheiro
 fazer pagarMensalidade de demolay
 fazer darBaixaMensalidade e adicionarGasto de tesoureiro
 */
@@ -34,12 +34,31 @@ fazer darBaixaMensalidade e adicionarGasto de tesoureiro
         function __construct($cdDemolay){
             $this->conexao = new mysqli('localhost', 'root','', 'projcap');
             $conexao = $this->conexao;
-            $consulta = "SELECT demolay.*, capitulo.nm_capitulo, gestao.nm_gestao
-            FROM demolay 
-            JOIN capitulo ON capitulo.cd_capitulo = demolay.cd_capitulo 
-            JOIN gestao ON gestao.cd_capitulo = capitulo.cd_capitulo
-            WHERE demolay.cd_demolay = $cdDemolay 
-            AND gestao.cd_gestao IN (SELECT MAX(gestao.cd_gestao) FROM gestao)";
+            /*verifica se é presidente de comissao, membro de comissao, ou oficial
+            testar se este funciona
+                SELECT DM.*, CAP.nm_capitulo, C1.nm_comissao AS presidente, C2.nm_comissao AS membro, oficial.nm_oficial, gestao.nm_gestao
+                FROM demolay DM
+                JOIN capitulo CAP ON CAP.cd_capitulo = DM.cd_capitulo
+                LEFT JOIN membro M1 ON M1.cd_demolay = DM.cd_demolay
+                LEFT JOIN comissao C1 ON C1.cd_demolay = DM.cd_demolay
+                LEFT JOIN comissao C2 ON C2.cd_comissao = M1.cd_comissao
+
+                LEFT JOIN gestao ON gestao.cd_capitulo = CAP.cd_capitulo
+                LEFT JOIN nominata ON nominata.cd_gestao = gestao.cd_gestao AND nominata.cd_demolay = DM.cd_demolay
+                LEFT JOIN oficial ON oficial.cd_oficial = nominata.cd_oficial
+                WHERE gestao.cd_gestao IN (SELECT MAX(gestao.cd_gestao) FROM gestao)
+            */
+            $consulta = "SELECT DM.*, CAP.nm_capitulo, C1.nm_comissao AS presidente, C2.nm_comissao AS membro, oficial.nm_oficial, gestao.nm_gestao
+            FROM demolay DM
+            JOIN capitulo CAP ON CAP.cd_capitulo = DM.cd_capitulo
+            LEFT JOIN membro M1 ON M1.cd_demolay = DM.cd_demolay
+            LEFT JOIN comissao C1 ON C1.cd_demolay = DM.cd_demolay
+            LEFT JOIN comissao C2 ON C2.cd_comissao = M1.cd_comissao
+            LEFT JOIN gestao ON gestao.cd_capitulo = CAP.cd_capitulo
+            LEFT JOIN nominata ON nominata.cd_gestao = gestao.cd_gestao AND nominata.cd_demolay = DM.cd_demolay
+            LEFT JOIN oficial ON oficial.cd_oficial = nominata.cd_oficial
+            WHERE DM.cd_demolay = $cdDemolay AND gestao.cd_gestao IN (SELECT MAX(gestao.cd_gestao) FROM gestao)
+            ";
             $busca = $conexao->query($consulta);
             $rows = $busca->num_rows;
             if($rows == 0){ //verifica se a informação chegou
@@ -53,6 +72,9 @@ fazer darBaixaMensalidade e adicionarGasto de tesoureiro
                     $this->capitulo = $info['nm_capitulo'];
                     $this->gestao = $info['nm_gestao'];
                     $this->codigo = $info['cd_demolay'];
+                    $this->ocupacao = $info['nm_oficial'];
+                    $this->presidenteComissao = $info['presidente'];
+                    $this->membroComissao = $info['membro'];
                 }
             }
         }
@@ -61,8 +83,11 @@ fazer darBaixaMensalidade e adicionarGasto de tesoureiro
         
         public $cid;
         public $nome;
+        public $ocupacao;
         public $capitulo;
         public $gestao;
+        public $presidenteComissao;
+        public $membroComissao;
 
         function pagarMensalidade(){}
         function verPresenca(){
@@ -246,7 +271,11 @@ fazer darBaixaMensalidade e adicionarGasto de tesoureiro
                 (SELECT cd_gestao FROM gestao WHERE cd_gestao = $gestao));";
             $conexao->query($consulta);
         }
-        function mudarReuniao(){}
+        function editarReuniao($cdReuniao, $pauta){
+            $conexao = $this->conexao;
+            $consulta = "UPDATE reuniao SET nm_pauta_reuniao = '".$pauta."' WHERE cd_reuniao = $cdReuniao";
+            $conexao->query($consulta);
+        }
         function apagarReuniao(){}
         function mudarGestao(){}
         function fazerNominata(){}
