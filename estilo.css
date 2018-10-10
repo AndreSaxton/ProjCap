@@ -27,7 +27,7 @@
     div#menu p#pMenu, div#menu p#pFechar{
         display: none;
     }
-    div#menu p{
+    div#menu p, div#menu form{
         text-align: center;
         margin: 0px;
     }
@@ -50,10 +50,22 @@
     a{
         text-decoration: none;
         color: black;
+        padding: 10px 30px;
+    }
+    div#menu div#opcoes form input{
+        background-color: grey;
+        border: none;
+        color: black;
+        padding: 0px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+
+        cursor: pointer;
     }
     /*FIM utilizado no menu*/
     /*utilizado na pag MC*/
-    #iPauta{
+    .pauta{
         height: 10em;
         width: 99%;
     }
@@ -148,7 +160,7 @@
     div#menu p#pMenu{
         padding: 20px;
     }
-    div#menu p{
+    div#menu p, div#menu form{
         text-align: center;
         margin: 0px;
     }
@@ -174,10 +186,19 @@
     a{
         text-decoration: none;
         color: black;
+        padding: 50px 50px;
+    }
+    div#menu div#opcoes form input{
+        background-color: rgba(100, 34, 28);
+        border: none;
+        color: black;
+        padding: 0px;
+        text-align: center;
+        text-decoration: none;
     }
     /*FIM utilizado no menu*/
     /*utilizado na pag MC*/
-    #iPauta{
+    .pauta{
         height: 10em;
         width: 100%;
         

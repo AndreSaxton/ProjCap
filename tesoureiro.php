@@ -8,11 +8,11 @@
 <body>
     <?php
     session_start();
-    require_once('menu.html');
     require_once('classes.php');
     $cdDemolay = $_SESSION['cd_demolay'];
     $tesoureiro = new tesoureiro($cdDemolay);
     $mensalidades = $tesoureiro->verMensalidades();
+    require_once('menu.php');
     ?>
 
     <div class="mensalidades">

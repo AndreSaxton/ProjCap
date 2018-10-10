@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    require_once('classes.php');
+    $cdDemolay = $_SESSION['cd_demolay'];
+    $demolay = new demolay($cdDemolay);
+    $demolays = $demolay->verDemolays();
+    $reunioes = $demolay->verReunioes();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +20,21 @@
                 return false;
             else
                 return true;
+        }
+        function validarEditReuniao(){
+            let cdReuniao = document.getElementById("iEditReuniao").value;
+            let pauta = document.getElementById("iEditPauta").value;
+            
+            if(cdReuniao==""||pauta==""){
+                return false;
+            }
+            else{
+                let resultado = confirm("Deseja alterar a\npauta de reunião?");
+                if(resultado)
+                    return true;
+                else
+                    return false;
+            }
         }
         function validarMembro(){
             let cid = document.getElementById("iCid").value;
@@ -39,14 +62,7 @@
 <body>
 
 <?php
-    session_start();
-    require_once('menu.html');//menu
-
-    require_once('classes.php');
-    $cdDemolay = $_SESSION['cd_demolay'];
-    $demolay = new demolay($cdDemolay);
-    $demolays = $demolay->verDemolays();
-
+    require_once('menu.php');//menu
     if(!empty($_REQUEST["salvarReuniao"])){
         $data = $_REQUEST["data"];
         $pauta = $_REQUEST["pauta"];
@@ -54,6 +70,14 @@
 
         $mestreConselheiro = new mestreConselheiro($cdDemolay);
         $mestreConselheiro->salvarReuniao($data,$pauta,$gestao);
+    }
+    if(!empty($_REQUEST["editarReuniao"])){
+        $cdReuniao = $_REQUEST["nEditReuniao"];
+        $pauta = $_REQUEST["nEditPauta"];
+        $gestao = 1;
+
+        $mestreConselheiro = new mestreConselheiro($cdDemolay);
+        $mestreConselheiro->editarReuniao($cdReuniao, $pauta);
     }
     if(!empty($_REQUEST["adicionarDM"])){
         $cid = $_REQUEST["cid"];
@@ -79,8 +103,32 @@
         <form action="#" method="post">
             <table>
                 <tr><td>Data:</td><td><input type="date" name="data" id="iData"></td></tr>
-                <tr><td>Pauta:</td><td><textarea name="pauta" id="iPauta" maxlength="100"></textarea></td></tr>
+                <tr><td>Pauta:</td><td><textarea name="pauta" id="iPauta" maxlength="100" class="pauta"></textarea></td></tr>
                 <tr><td></td><td><input type="submit" onclick="return validarReuniao();" value="Salvar" name="salvarReuniao"></td></tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<div class="reunioes">
+    <h3 onclick="show('divEditReunioes')">Editar Reunião</h3>
+    <div class="hide" id="divEditReunioes">
+        <form action="#" method="post">
+            <table>
+                <tr>
+                    <td>Reunião:</td>
+                    <td>
+                        <select name="nEditReuniao" id="iEditReuniao">
+                            <?php
+                                for ($index0=0; $index0 < sizeof($reunioes); $index0++) {
+                                    echo "<option value=".$reunioes[$index0][0].">".$reunioes[$index0][1]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr><td>Pauta:</td><td><textarea name="nEditPauta" id="iEditPauta" maxlength="100" class="pauta"></textarea></td></tr>
+                <tr><td></td><td><input type="submit" onclick="return validarEditReuniao();" value="Editar" name="editarReuniao"></td></tr>
             </table>
         </form>
     </div>

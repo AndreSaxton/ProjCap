@@ -81,11 +81,10 @@
 <body>
     <?php
         session_start();
-        require_once('menu.html');//menu
-
         require_once('classes.php');
         $cdDemolay = $_SESSION['cd_demolay'];
         $demolay = new demolay($cdDemolay);
+        require_once('menu.php');
         $demolays = $demolay->verDemolays();
         $reunioes = $demolay->verReunioes();
         $escrivao = new escrivao($cdDemolay);

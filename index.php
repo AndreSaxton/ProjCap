@@ -34,23 +34,27 @@
         $cd_demolay = $_SESSION['cd_demolay'];
         $demolay = new demolay($cd_demolay);//enviando o cd_demolay para o construtor
 
-        require_once('menu.html');//menu
+        require_once('menu.php');//menu
     ?>
     
-    <form action="#" method="post">
-    <input type="submit" onclick="" value="Deslogar" name="btnUnlogin">
-    </form>
-
     <table>
         <tr>
-            <td>CID:</td><td><?php echo $demolay->cid;?></td>
-            <td>Capitulo:</td><td><?php echo $demolay->capitulo;?></td>
+            <td>Gestão: <?php echo $demolay->gestao;?></td>
+            <td>Capitulo: <?php echo $demolay->capitulo;?></td>
         </tr>
         <tr>
-            <td>Nome:</td><td><?php echo $demolay->nome;?></td>
-            <td>Gestão:</td><td><?php echo $demolay->gestao;?></td>
+            <td>CID: <?php echo $demolay->cid;?></td>
+            <td>Nome: <?php echo $demolay->nome;?></td>
         </tr>
-        </table>
+        <tr>
+            <td>Cargo: <?php echo $demolay->ocupacao;?></td>
+            <?php if ($demolay->presidenteComissao!=""){ ?>
+            <td>Presidente: <?php echo $demolay->presidenteComissao;?></td>
+            <?php }if ($demolay->membroComissao!="") {?>
+            <td>Membro: <?php echo $demolay->membroComissao;?></td>
+            <?php }?>
+        </tr>
+    </table>
     <?php } ?>
     
     <?php

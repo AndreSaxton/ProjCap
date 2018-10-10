@@ -9,10 +9,10 @@
     <?php
         //require_once('index.php');//cabecalho
         session_start();
-        require_once('menu.html');//menu
         require_once('classes.php');
         $cdDemolay = $_SESSION['cd_demolay'];
         $demolay = new demolay($cdDemolay);
+        require_once('menu.php');//menu
         $reunioes = $demolay->verReunioes();
         $mensalidades = $demolay->verMensalidade();
         $demolays = $demolay->verDemolays();
