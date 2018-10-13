@@ -48,6 +48,53 @@
                     return false;
             }
         }
+        function validarNominata(){
+            let idsNominata = document.getElementsByName("idNominata");
+            let repetido = false;
+            let vazio = false;
+            for (let index1 = 0; index1 < idsNominata.length; index1++) {
+                if(idsNominata[index1].value != ""){//se o campo nao estiver vazio
+                    //console.log(idsNominata[index1].value);
+                    for (let index2 = 0; index2 < idsNominata.length; index2++) {
+                        //ver se ninguem foi repetido
+                        //console.log(idsNominata[index1].value);
+                        if (idsNominata[index1] != idsNominata[index2]) {//se a linha nao for a mesma
+                            if(idsNominata[index1].value == idsNominata[index2].value)
+                                repetido = true;
+                        }
+                    }
+                }
+                else{
+                    vazio = true;
+                }
+            }
+            
+            if (repetido||vazio) {
+                if (repetido)
+                    alert("Um DM não pode \nocupar 2 cargos");
+                if (vazio)
+                    alert("Preencha todos os cargos");
+            }
+            else{
+                let resultado = confirm("Esta é a nominata para a proxima gestão?");
+                if(resultado){
+                    let inputJson = document.getElementById("iJsonIdsNominata");
+                    inputJson.value = "";
+                    let jsonNominata;
+                    jsonNominata = "[";
+                    for (index1 = 0; index1 < idsNominata.length; index1++){
+                        jsonNominata += "{" +idsNominata[index1].value + "}";
+                        if(index1 < idsNominata.length-1)
+                            jsonNominata += ",";
+                    }
+                    jsonNominata += "]";
+                    inputJson.value = jsonNominata;
+
+                    return true;
+                }
+            }
+            return false;
+        }
         function validarMembro(){
             let cid = document.getElementById("iCid").value;
             let nome = document.getElementById("iNome").value;
@@ -117,6 +164,14 @@
         $mestreConselheiro = new mestreConselheiro($cdDemolay);
         $mestreConselheiro->adicionarComissao($comissao,$presidente,$gestao);
     }
+    if(!empty($_REQUEST["mudarGestao"])){
+        $nominata = $_REQUEST["idNominata"];
+
+
+        $mestreConselheiro = new mestreConselheiro($cdDemolay);
+        //$mestreConselheiro->mudarGestao($);
+    }
+    echo $nominata;
 ?>
 
 <div class="reunioes">
@@ -196,6 +251,301 @@
             <tr><td></td><td><input type="submit" onclick="return validarComissao();" value="Salvar" name="salvarComissao"></td></tr>
         </table>
     </form>
+    </div>
+</div>
+
+<div class="gestao">
+    <h3 onclick="show('divFimGestao')">Encerrar Gestão</h3>
+    <div class="hide" id="divFimGestao">
+        <form action="#" method="post">
+            <table>
+                <tr>
+                    <td>Mestre Conselheiro</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td>Capelão</td>
+                    <td>
+                        <select name = "idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1º Conselheiro</td>
+                    <td>
+                        <select name = "idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td>2º Conselheiro</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Escrivão</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td>Orador</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tesoureiro</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td>Hospitaleiro</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mestre de Cerimônias</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td>Porta Estandarte</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Organista</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td>Sentinela</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1º Diácono</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td>2º Diácono</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1º Mordomo</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td>2º Mordomo</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1º Preceptor</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td>2º Preceptor</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3º Preceptor</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td>4º Preceptor</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5º Preceptor</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td>6º Preceptor</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7º Preceptor</td>
+                    <td>
+                        <select name="idNominata">
+                            <option value="" disabled selected style="display:none;"></option>
+                            <?php
+                                for ($index0=0; $index0 < sizeof($demolays); $index0++) {
+                                    echo "<option value=".$demolays[$index0][0].">".$demolays[$index0][2]."</option>";
+                                }
+                            ?>
+                        </select>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" onclick="return validarNominata();" value="Salvar" name="mudarGestao"></td>
+                    <td><input type="text" name="nJsonIdsNominata" id="iJsonIdsNominata"></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </form>
     </div>
 </div>
 

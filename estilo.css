@@ -72,6 +72,9 @@
     table, tr, tbody{
         width: 100%;
     }
+    .gestao table, .gestao tr, .gestao tbody{
+        width: auto;
+    }
     /*FIM utilizado na pag MC*/
     /*utilizado nos grids*/
     .item-a {
