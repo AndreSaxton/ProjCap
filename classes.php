@@ -1,6 +1,6 @@
 <?php
 /*
-fazer apagarReuniao, mudarGestao e fazerNominata de mestreConselheiro
+fazer mudarGestao e fazerNominata de mestreConselheiro
 fazer pagarMensalidade de demolay
 fazer darBaixaMensalidade e adicionarGasto de tesoureiro
 */
@@ -276,7 +276,17 @@ fazer darBaixaMensalidade e adicionarGasto de tesoureiro
             $consulta = "UPDATE reuniao SET nm_pauta_reuniao = '".$pauta."' WHERE cd_reuniao = $cdReuniao";
             $conexao->query($consulta);
         }
-        function apagarReuniao(){}
+        function deletarReuniao($cdReuniao){
+            $conexao = $this->conexao;
+            $consulta = "DELETE FROM reuniao WHERE cd_reuniao = $cdReuniao";
+            try{
+                $resultado = $conexao->query($consulta);
+                return $resultado;
+            }
+            catch(Exception $e){
+                return $resultado;
+            }
+        }
         function mudarGestao(){}
         function fazerNominata(){}
     }

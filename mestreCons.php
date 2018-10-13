@@ -24,12 +24,24 @@
         function validarEditReuniao(){
             let cdReuniao = document.getElementById("iEditReuniao").value;
             let pauta = document.getElementById("iEditPauta").value;
-            
             if(cdReuniao==""||pauta==""){
                 return false;
             }
             else{
                 let resultado = confirm("Deseja alterar a\npauta de reunião?");
+                if(resultado)
+                    return true;
+                else
+                    return false;
+            }
+        }
+        function validarDeleteReuniao(){
+            let cdReuniao = document.getElementById("iEditReuniao").value;
+            if(cdReuniao==""){
+                return false;
+            }
+            else{
+                let resultado = confirm("Deseja apagar a\n reunião?");
                 if(resultado)
                     return true;
                 else
@@ -78,6 +90,16 @@
 
         $mestreConselheiro = new mestreConselheiro($cdDemolay);
         $mestreConselheiro->editarReuniao($cdReuniao, $pauta);
+    }
+    if(!empty($_REQUEST["deletarReuniao"])){
+        $cdReuniao = $_REQUEST["nEditReuniao"];
+        $mestreConselheiro = new mestreConselheiro($cdDemolay);
+        $resultado = $mestreConselheiro->deletarReuniao($cdReuniao);
+        //mudar o que esta abaixo
+        if($resultado==false)
+            echo "<script>alert('nao foi');</script>";
+        else
+            echo "<script>alert('apagado');</script>";
     }
     if(!empty($_REQUEST["adicionarDM"])){
         $cid = $_REQUEST["cid"];
@@ -128,7 +150,13 @@
                     </td>
                 </tr>
                 <tr><td>Pauta:</td><td><textarea name="nEditPauta" id="iEditPauta" maxlength="100" class="pauta"></textarea></td></tr>
-                <tr><td></td><td><input type="submit" onclick="return validarEditReuniao();" value="Editar" name="editarReuniao"></td></tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" onclick="return validarEditReuniao();" value="Editar" name="editarReuniao">
+                        <input type="submit" onclick="return validarDeleteReuniao();" value="Deletar" name="deletarReuniao">
+                    </td>
+                </tr>
             </table>
         </form>
     </div>
